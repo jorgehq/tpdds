@@ -228,6 +228,10 @@
         </configuration>
       </plugin>
       <plugin>
+
+
+
+
         <!-- Build an executable JAR -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -235,7 +239,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>Main</mainClass>
+              <Main-Class>App</Main-Class>
             </manifest>
           </archive>
         </configuration>
