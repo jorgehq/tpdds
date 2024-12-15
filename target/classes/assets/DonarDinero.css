@@ -1,0 +1,8 @@
+#botonDonarDinero {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonDonarDinero input {
+    width: 276px;
+}

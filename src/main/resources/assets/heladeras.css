@@ -1,0 +1,69 @@
+#contenerdorHeladeras {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos horizontalmente */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.fondoContenedor {
+    width: 100%;
+    max-width: 800px; /* Limita el ancho para que no se estire mucho */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fondoContenedor p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.fondoContenedor ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fondoContenedor ul li {
+    background-color: #fafafa;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fondoContenedor ul li p {
+    font-size: 16px;
+    color: #333;
+}
+#BotonFiltrarHeladera {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#BotonFiltrarHeladera input {
+    width: 200px;
+}
+#Botonsuscripcion {
+    justify-content: center;
+    margin-top: 25px;
+}
+#Botonsuscripcion input {
+    width: 200px;
+}
+
+#Botonreportar {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#Botonreportar input {
+    width: 200px;
+}

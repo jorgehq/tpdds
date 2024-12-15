@@ -1,0 +1,9 @@
+section {
+    padding: 20px;
+    border: 2px  #000;  /* Borde para asegurarse de que sea visible */
+    background-color: #f9f9f9; /* Fondo ligeramente gris */
+    margin: 10px;
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto; /* Centrar el contenedor */
+}

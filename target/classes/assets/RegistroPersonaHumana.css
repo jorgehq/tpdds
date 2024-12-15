@@ -1,0 +1,15 @@
+
+
+.form-floating {
+    margin: 10px;
+}
+
+#botonCrearCuenta {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonCrearCuenta input {
+    width: 276px;
+}
+

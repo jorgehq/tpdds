@@ -1,0 +1,17 @@
+#botonGuardarDatos {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonGuardarDatos input {
+    width: 200px;
+}
+
+#botonCerrarCuenta {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonCerrarCuenta input {
+    width: 200px;
+}

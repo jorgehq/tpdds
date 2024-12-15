@@ -1,0 +1,8 @@
+#botonReportarFalla {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonReportarFalla input {
+    width: 276px;
+}

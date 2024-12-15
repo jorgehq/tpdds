@@ -1,0 +1,8 @@
+#botonRegistroPSV {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonRegistroPSV input {
+    width: 276px;
+}

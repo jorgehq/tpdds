@@ -1,0 +1,14 @@
+
+
+#botonCrearCuenta {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonCrearCuenta input {
+    width: 276px;
+}
+
+form {
+    padding: 1px;
+}
