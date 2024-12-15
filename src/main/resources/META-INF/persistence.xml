@@ -59,35 +59,17 @@
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class" />
-            <!-- base de datos en memoria, no es necesario descargar nada!!!/-->
-            <!--<property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
-            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" />
-            <property name="hibernate.connection.username" value="sa" />
-            <property name="hibernate.connection.password" value="" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" /> -->
+            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- Usa 'update' para mantener los datos entre reinicios -->
 
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://dpg-ctfk3fggph6c73fncgk0-a.oregon-postgres.render.com:5432/dds_nh8w?sslmode=require" />
+            <property name="hibernate.connection.username" value="dds_nh8w_user" />
+            <property name="hibernate.connection.password" value="4wQDYq3D2f3D049JflmkbVWfSgzuKFCX" />
 
-            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
-            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:devdb" />
-            <property name="hibernate.hbm2ddl.auto" value="create" />
-
-            <!--property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/TPBD"/>
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="1234"/>
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-
-
-            <!--property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/prueba_grupo10?serverTimezone=UTC" /-->  <!-- Cambiar para cada uno -->
-            <!--property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="goku123" /--> <!-- Cambiar para cada uno -->
-            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/> -->
-
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://dpg-ctfk3fggph6c73fncgk0-a.oregon-postgres.render.com:5432/dds_nh8w?sslmode=require" />
+            <property name="javax.persistence.jdbc.user" value="dds_nh8w_user" />
+            <property name="javax.persistence.jdbc.password" value="4wQDYq3D2f3D049JflmkbVWfSgzuKFCX" />
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
         </properties>
 
     </persistence-unit>
