@@ -10,5 +10,5 @@ COPY target/ejercicio-1.0-SNAPSHOT.jar /app/ejercicio-1.0-SNAPSHOT.jar
 # Exponer el puerto en el que se ejecutará la aplicación
 EXPOSE 7000
 
-# Comando para ejecutar el archivo JAR con la clase principal correcta
-CMD ["java", "-cp", "ejercicio-1.0-SNAPSHOT.jar", "java.Domain.Server.App"]
+# Comando para ejecutar el archivo JAR
+CMD ["java", "-jar", "ejercicio-1.0-SNAPSHOT.jar"]

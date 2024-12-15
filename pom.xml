@@ -239,7 +239,7 @@
         <configuration>
           <archive>
             <manifest>
-              <Main-Class>java.Domain.Server.App</Main-Class>
+              <Main-Class>Domain.Server.App</Main-Class>
             </manifest>
           </archive>
         </configuration>
