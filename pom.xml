@@ -239,24 +239,13 @@
         <configuration>
           <archive>
             <manifest>
-              <Main-Class>App</Main-Class>
+              <Main-Class>Domain.Server.App</Main-Class>
             </manifest>
           </archive>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.heroku.sdk</groupId>
-        <artifactId>heroku-maven-plugin</artifactId>
-        <version>3.0.3</version>
-        <configuration>
-          <jdkVersion>11</jdkVersion>
-          <appName>javalin-heroku-example</appName>
-          <processTypes>
-            <!-- Tell Heroku how to launch your application -->
-            <web>java -jar ./target/javalin-heroku-example-1.0-jar-with-dependencies.jar</web>
-          </processTypes>
-        </configuration>
-      </plugin>
+
+
     </plugins>
   </build>
 </project>
