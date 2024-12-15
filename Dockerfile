@@ -11,4 +11,4 @@ COPY target/ejercicio-1.0-SNAPSHOT.jar /app/ejercicio-1.0-SNAPSHOT.jar
 EXPOSE 7000
 
 # Comando para ejecutar el archivo JAR
-CMD ["java", "-jar", "ejercicio-1.0-SNAPSHOT.jar"]
+CMD ["java", "-cp", "target/ejercicio-1.0-SNAPSHOT.jar", "App"]
