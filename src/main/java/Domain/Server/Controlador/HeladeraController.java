@@ -33,19 +33,19 @@ public class HeladeraController {
                 int filtroInt = Integer.parseInt(filtro);
                 switch (filtroInt) {
                     case 0:
-                        filtradas = RepoHeladera.getInstance().obtenerTodos();
+                        filtradas = RepoHeladera.getInstance().obtenerTodos().stream().toList();
                         model.put("heladeras", filtradas);
                         break;
                     case 1:
-                        filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato);
+                        filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato).stream().toList();
                         model.put("heladeras", filtradas);
                         break;
                     case 2:
-                        filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato);
+                        filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato).stream().toList();
                         model.put("heladeras", filtradas);
                         break;
                     case 3:
-                        filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato);
+                        filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato).stream().toList();
                         model.put("heladeras", filtradas);
                         break;
                     default:
@@ -86,7 +86,7 @@ public class HeladeraController {
 
             Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeras.get(0)));
 
-            ctx.redirect("/reportar_falla?heladeraID="+heladera.getId());
+            ctx.redirect("/falla?heladeraID="+heladera.getId());
         }
 
     }

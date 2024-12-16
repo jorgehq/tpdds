@@ -34,12 +34,11 @@ public class ColaboracionController {
         }else{
             String filtro=ctx.queryParam("filtro");
             if(filtro==null){
-                model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
+
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
             }else{
-                filtradas=RepoHeladera.getInstance().obtenerTodos();
+                filtradas=RepoHeladera.getInstance().obtenerTodos().stream().toList();
                 model.put("heladeras",filtradas);
-                System.out.println("=============================================vValor Admin "+ctx.sessionAttribute("usuarioEsAdmin"));
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
 
             }
@@ -55,7 +54,7 @@ public class ColaboracionController {
         }else{
             switch(Integer.valueOf(eleccion)){
                 case 0: //Donacion de dinero
-                    ctx.redirect("/donar_dinero");
+                    ctx.redirect("/colaboracion/dinero");
                     break;
                 case 1: //DonarVianda
                     List<String> heladeraIds = ctx.formParams("heladeraId"); // Obtener lista de IDs de heladeras
@@ -66,7 +65,7 @@ public class ColaboracionController {
 
                         if (heladera != null) {
 
-                            ctx.redirect("/donar_vianda?heladeraID=" + heladera.getId());
+                            ctx.redirect("/colaboracion/vianda?heladeraID=" + heladera.getId());
 
                         } else {
                             ctx.status(404).result("Heladera no encontrada");
@@ -84,14 +83,14 @@ public class ColaboracionController {
                         Heladera heladera2 = RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraIds2.get(1)));
 
 
-                        ctx.redirect( "/distribuir_vianda?heladeraId=" + heladera1.getId() + "&heladeraId2=" + heladera2.getId());
+                        ctx.redirect( "/colaboracion/distribucion?heladeraId=" + heladera1.getId() + "&heladeraId2=" + heladera2.getId());
 
                     }
                     break;
                 case 3 : //Donar Heladera
                     Colaborador colaborador= RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
                     if(colaborador instanceof  PersonaJuridica){
-                        ctx.redirect("/donar_heladera");
+                        ctx.redirect("/colaboracion/heladera");
                     }else {
                         ctx.redirect("/colaboracion");
                     }

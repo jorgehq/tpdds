@@ -9,7 +9,9 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RepoHeladera {
   private EntityManagerFactory emf;
@@ -38,30 +40,44 @@ public class RepoHeladera {
 
 
 
-  public List<Heladera> obtenerTodos() {
+  public Set<Heladera> obtenerTodos() {
 
     TypedQuery<Heladera> query = em.createQuery("SELECT u FROM Heladera u", Heladera.class);
 
-    List<Heladera> heladeras = query.getResultList();
-    heladeras.forEach(h->h.getEstado().iniciarSensores());
+    List<Heladera> listaHeladeras = query.getResultList();
+    Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
+
+    heladeras.forEach(h -> h.getEstado().iniciarSensores());
     return heladeras;
   }
-  public List<Heladera> filtrarPorNombre(String nombre) {
+  public Set<Heladera> filtrarPorNombre(String nombre) {
     TypedQuery<Heladera> query = em.createQuery("SELECT h FROM Heladera h WHERE h.nombre LIKE :nombre", Heladera.class);
     query.setParameter("nombre", "%" + nombre + "%");
-    return query.getResultList();
+    List<Heladera> listaHeladeras = query.getResultList();
+    Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
+
+    heladeras.forEach(h -> h.getEstado().iniciarSensores());
+    return heladeras;
   }
 
-  public List<Heladera> filtrarPorLocalidad(String localidad) {
+  public Set<Heladera> filtrarPorLocalidad(String localidad) {
     TypedQuery<Heladera> query = em.createQuery("SELECT h FROM Heladera h WHERE h.direccion.localidad = :localidad", Heladera.class);
     query.setParameter("localidad", Localidad.valueOf(localidad.toUpperCase()));
-    return query.getResultList();
+    List<Heladera> listaHeladeras = query.getResultList();
+    Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
+
+    heladeras.forEach(h -> h.getEstado().iniciarSensores());
+    return heladeras;
   }
 
-  public List<Heladera> filtrarPorDireccion(String direccion) {
+  public Set<Heladera> filtrarPorDireccion(String direccion) {
     TypedQuery<Heladera> query = em.createQuery("SELECT h FROM Heladera h WHERE h.direccion.direccion LIKE :direccion", Heladera.class);
     query.setParameter("direccion", "%" + direccion + "%");
-    return query.getResultList();
+    List<Heladera> listaHeladeras = query.getResultList();
+    Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
+
+    heladeras.forEach(h -> h.getEstado().iniciarSensores());
+    return heladeras;
   }
   public void guardar(Heladera heladera) {
     em.getTransaction().begin();

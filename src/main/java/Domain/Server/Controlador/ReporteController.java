@@ -31,7 +31,7 @@ public class ReporteController {
             switch (Integer.valueOf(eleccion)) {
                 case 0: //Fallas por heladera
                     Map<Heladera, Integer> reporteFallasPorHeladera = new HashMap<>();
-                    List<Heladera> heladeras = RepoHeladera.getInstance().obtenerTodos();
+                    List<Heladera> heladeras = RepoHeladera.getInstance().obtenerTodos().stream().toList();
 
                     for (Heladera h : heladeras) {
                         int cantidad = 0;
@@ -50,7 +50,7 @@ public class ReporteController {
                     break;
                 case 1: //Viandas retiradas y colocadas
                     Map<Heladera, Integer> reporteEntradaSalida = new HashMap<>();
-                    List<Heladera> heladeras2 = RepoHeladera.getInstance().obtenerTodos();
+                    List<Heladera> heladeras2 = RepoHeladera.getInstance().obtenerTodos().stream().toList();
                     List<TipoDeColaboracion> colaboraciones = RepoColaboraciones.getInstance().obtenerTodos();
                     List<DonarVianda> donaciones = new ArrayList<>();
 

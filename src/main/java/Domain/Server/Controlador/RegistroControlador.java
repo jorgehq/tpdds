@@ -32,9 +32,9 @@ public class RegistroControlador {
 
       String eleccion=ctx.formParam("eleccion");
       if(Integer.valueOf(eleccion)==0){
-        ctx.redirect("/registro_persona");
+        ctx.redirect("/registro/persona");
       }else{
-        ctx.redirect("/registro_negocio");
+        ctx.redirect("/registro/negocio");
       }
 
   }
