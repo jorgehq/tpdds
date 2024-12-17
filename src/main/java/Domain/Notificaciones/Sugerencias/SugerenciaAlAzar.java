@@ -22,7 +22,7 @@ public class SugerenciaAlAzar extends Sugerencia {
 
     @Override
     public void sugerencias(Heladera h) {
-        List<Heladera> todasHeladeras = RepoHeladera.getInstance().obtenerTodos();
+        List<Heladera> todasHeladeras = RepoHeladera.getInstance().obtenerTodos().stream().toList();
         todasHeladeras.removeIf(heladera -> heladera.getId().equals(h.getId()));
         Random random = new Random();
 

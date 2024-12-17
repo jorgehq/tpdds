@@ -17,7 +17,7 @@ public class SugerenciaUnKilometro extends Sugerencia {
 
     @Override
     public void sugerencias(Heladera h) {
-        List<Heladera> todasHeladeras= RepoHeladera.getInstance().obtenerTodos();
+        List<Heladera> todasHeladeras= RepoHeladera.getInstance().obtenerTodos().stream().toList();
         this.h= todasHeladeras.stream().filter(hel->distancia1(h,hel) && hel.equals(h)==false).toList().get(0);
     }
     public  boolean distancia1(Heladera incidente,Heladera destino){

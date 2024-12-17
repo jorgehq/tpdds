@@ -22,7 +22,7 @@ public class SugerenciaMasVacio extends Sugerencia {
 
     @Override
     public void sugerencias(Heladera h) {
-        List<Heladera> todasHeladeras= RepoHeladera.getInstance().obtenerTodos();
+        List<Heladera> todasHeladeras= RepoHeladera.getInstance().obtenerTodos().stream().toList();
          this.h=todasHeladeras.stream().filter(he->he.getEstado().getNivelDeLlenado()== NivelDeLlenado.BAJO).toList().get(0);
     }
     @Override
