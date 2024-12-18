@@ -21,14 +21,15 @@ public class CronVerificarSolicitudes {
     public void verificandoYmandarMensaje(){
       ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
       scheduler.schedule(() -> {
-        System.out.println("Cron inicializado después de 30 segundos.");
-        scheduler.scheduleAtFixedRate(this::mostrar, 0, 100, TimeUnit.SECONDS);
+
+        scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 100, TimeUnit.SECONDS);
       }, 30, TimeUnit.SECONDS);
     }
 
     public void verificarSolicitudes(){
        this.mostrar();
       List<SolicitudColaboracion> lista=RepoSolicitudColaboracion.getInstance().obtenerTodos();
+      System.out.println("==============================Lista: "+lista.size());
       for(SolicitudColaboracion s:lista){
         if(s.fechaExpiracion.isBefore(LocalDate.now())){
           s.setExpired(true);
