@@ -27,7 +27,7 @@ public class CronVerificandoIntegridadHeladeras {
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     scheduler.schedule(() -> {
 
-      scheduler.scheduleAtFixedRate(this::verificarHeladeras, 0, 100, TimeUnit.SECONDS);
+      scheduler.scheduleAtFixedRate(this::verificarHeladeras, 0, 1000, TimeUnit.SECONDS);
     }, 30, TimeUnit.SECONDS);
   }
 

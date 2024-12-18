@@ -27,7 +27,7 @@ public class ColaboracionController {
         String usuarioID = ctx.sessionAttribute("usuarioID");
         Map<String, Object> model = new HashMap<>();
         model.put("esAdmin", ctx.sessionAttribute("esAdmin"));
-        String dato = ctx.queryParam("eleccion");
+        String dato = ctx.queryParam("dato");
         Set<Heladera> filtradas;
         if (usuarioID == null) {
             ctx.redirect("/");
@@ -39,6 +39,7 @@ public class ColaboracionController {
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
             } else {
                 int filtroInt = Integer.parseInt(filtro);
+                System.out.println("==========================filtro "+filtroInt);
                 try {
                     switch (filtroInt) {
                         case 0:

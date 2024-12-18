@@ -22,7 +22,7 @@ public class CronVerificarSolicitudes {
       ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
       scheduler.schedule(() -> {
 
-        scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 100, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 1000, TimeUnit.SECONDS);
       }, 30, TimeUnit.SECONDS);
     }
 
