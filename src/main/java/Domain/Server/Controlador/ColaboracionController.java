@@ -197,8 +197,12 @@ public class ColaboracionController {
 
         System.out.println("======================="+fechaCaducidad+peso+calorias);
 
-        colaborador.getTarjeta().agregarSolicitud(t,heladera,datos,1);
+        SolicitudColaboracion solicitud = new SolicitudColaboracion(t, heladera, colaborador.getTarjeta(),datos,1);
 
+        solicitud.setEntregada(true);
+        System.out.println("==============================Aca se rompe========================");
+        System.out.println(solicitud.descripcion+" "+solicitud.isEntregada()+" "+solicitud.heladera.getNombre());
+        RepoSolicitudColaboracion.getInstance().guardar(solicitud);
 
         ctx.redirect("/colaboracion");
 
