@@ -182,6 +182,7 @@ public class ColaboracionController {
         String calorias = ctx.formParam("calorias");
         String heladeraid = ctx.formParam("heladera");
 
+
         Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
         Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraid));
 
@@ -193,6 +194,8 @@ public class ColaboracionController {
         datos.put("fechaCaducidad", fechaCaducidad);
         datos.put("peso", peso);
         datos.put("calorias", calorias);
+
+        System.out.println("======================="+fechaCaducidad+peso+calorias);
 
         colaborador.getTarjeta().agregarSolicitud(t,heladera,datos,1);
 

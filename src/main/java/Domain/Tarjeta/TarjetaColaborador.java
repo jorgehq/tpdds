@@ -47,6 +47,8 @@ public class TarjetaColaborador {
     SolicitudColaboracion solicitud = new SolicitudColaboracion(colaboracion, heladera, this,datos,cantidad);
 
     solicitud.setEntregada(true);
+    System.out.println("==============================Aca se rompe========================");
+    System.out.println(solicitud.descripcion+" "+solicitud.isEntregada()+" "+solicitud.heladera.getNombre());
     RepoSolicitudColaboracion.getInstance().guardar(solicitud);
 
   }
