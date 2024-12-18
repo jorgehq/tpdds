@@ -1,5 +1,6 @@
 package Domain.Server;
 
+import Domain.CronTasks.CronVerificandoIntegridadHeladeras;
 import Domain.CronTasks.CronVerificarSolicitudes;
 import Domain.Repositorios.RepoUsuario;
 import Domain.Server.Controlador.*;
@@ -79,6 +80,7 @@ public class Server {
     iniciarBD();
 
     new CronVerificarSolicitudes().verificandoYmandarMensaje();
+    new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
   }
 
 

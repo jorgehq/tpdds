@@ -102,6 +102,7 @@ E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Ser
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\APIs\TSensor\Action.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Tarjeta\TarjetaColaborador.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Repositorios\RepoColaboraciones.java
+E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\CronTasks\CronVerificandoIntegridadHeladeras.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Colaborador\Transferencia\Transferencia.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Persona\Operador.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Exception\ContraseniaInvalidaException.java

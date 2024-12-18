@@ -15,7 +15,6 @@ public class NotificacionFaltanViandas extends Notificacion {
 
     }
     public NotificacionFaltanViandas(int cantidadViandas,Heladera nombreHeladera) {
-        this.cantidadViandas = nombreHeladera.getCapacidadDeViandas()-nombreHeladera.getViandasEnHeladera().size();
         this.heladera=nombreHeladera;
         this.cantidadViandas=cantidadViandas;
         this.fecha= LocalDate.now();

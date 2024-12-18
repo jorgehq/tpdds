@@ -6,6 +6,7 @@ import Domain.Colaborador.TipoDeColaboracion.DonarVianda;
 import Domain.Heladera.Sensores.AdapterSensorPeso;
 import Domain.Heladera.Sensores.AdapterSensorTemperatura;
 import Domain.Notificaciones.Notificacion;
+import Domain.Notificaciones.NotificacionIncidente;
 import Domain.Repositorios.*;
 import Domain.Solicitudes.SolicitudColaboracion;
 import Domain.Ubicacion.Direccion;
@@ -148,8 +149,11 @@ public class Heladera {
   }
 
   public void notificarInteresados(Notificacion n){
-    marcarComoInactiva();
+    if(n instanceof NotificacionIncidente){
+      marcarComoInactiva();
+    }
     RepoNotificaciones.getInstance().guardar(n);
+
     for(Colaborador c:interesados){
       c.realizarNotificacionPor(n);
     }

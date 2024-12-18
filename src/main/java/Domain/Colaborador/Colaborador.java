@@ -124,6 +124,12 @@ public abstract class Colaborador {
 
 
      public void realizarNotificacionPor( Notificacion n){
+          for(Notificacion noti:notificaciones){
+            if(noti.getHeladera()==n.getHeladera() && n.getTipoNotificacion().equals(noti.getTipoNotificacion())){
+              System.out.println("========================= Ya entregado =================================");
+              return;
+            }
+          }
          System.out.println("Enviando a  "+ mediosDeContacto.size()+" medios de contactos");
 
          notificaciones.add(n);

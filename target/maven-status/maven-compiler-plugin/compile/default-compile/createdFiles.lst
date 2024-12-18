@@ -96,6 +96,7 @@ Domain\Colaborador\MedioDeContacto\InstantMessageApp.class
 Domain\Colaborador\TipoDeColaboracion\DonarVianda.class
 Domain\Repositorios\RepoMediosContacto.class
 Domain\Server\Controlador\UsuarioControlador.class
+Domain\CronTasks\CronVerificandoIntegridadHeladeras.class
 Domain\Repositorios\RepoAlertas.class
 Domain\Repositorios\RepoColaboradores.class
 Domain\Exception\ErrorConeccionSensorDePeso.class

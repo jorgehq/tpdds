@@ -33,11 +33,12 @@ public class ColaboracionController {
             ctx.redirect("/");
         } else {
             String filtro = ctx.queryParam("filtro");
-            int filtroInt = Integer.parseInt(filtro);
+
             if (filtro == null) {
 
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
             } else {
+                int filtroInt = Integer.parseInt(filtro);
                 try {
                     switch (filtroInt) {
                         case 0:
