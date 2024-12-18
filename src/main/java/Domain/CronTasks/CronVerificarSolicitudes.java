@@ -19,9 +19,11 @@ public class CronVerificarSolicitudes {
       System.out.println("=======================================================");
     }
     public void verificandoYmandarMensaje(){
-
       ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-      scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 100, TimeUnit.SECONDS);
+      scheduler.schedule(() -> {
+        System.out.println("Cron inicializado después de 30 segundos.");
+        scheduler.scheduleAtFixedRate(this::mostrar, 0, 100, TimeUnit.SECONDS);
+      }, 30, TimeUnit.SECONDS);
     }
 
     public void verificarSolicitudes(){
