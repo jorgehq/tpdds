@@ -1,10 +1,14 @@
 package Domain.Server;
 
+import Domain.CronTasks.CronVerificarSolicitudes;
 import Domain.Server.Controlador.*;
 import io.javalin.Javalin;
 
 public class Server {
   public void start() {
+
+    new CronVerificarSolicitudes().verificandoYmandarMensaje();
+
     Javalin app = Javalin.create(config -> {
       config.staticFiles.add(staticFileConfig -> {
         staticFileConfig.hostedPath = "/assets";
@@ -63,8 +67,8 @@ public class Server {
     app.get("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
     app.post("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
 
-    app.get("/notificacion", notificacionController::pantallaNotificaciones);
-    app.post("/notificacion", notificacionController::aceptarNotificacion);
+    app.get("/notificaciones", notificacionController::pantallaNotificaciones);
+    app.post("/notificaciones", notificacionController::aceptarNotificacion);
 
     app.get("/cuenta", cuentaController::pantalla_cuenta_principal);
     app.post("/cuenta", cuentaController::modificarCuenta);

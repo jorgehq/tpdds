@@ -28,7 +28,7 @@ public class ColaboracionController {
         Map<String, Object> model = new HashMap<>();
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
 
-        List<Heladera> filtradas;
+        Set<Heladera> filtradas;
         if(usuarioID==null){
             ctx.redirect("/");
         }else{
@@ -37,7 +37,7 @@ public class ColaboracionController {
 
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
             }else{
-                filtradas=RepoHeladera.getInstance().obtenerTodos().stream().toList();
+                filtradas=RepoHeladera.getInstance().obtenerTodos();
                 model.put("heladeras",filtradas);
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
 

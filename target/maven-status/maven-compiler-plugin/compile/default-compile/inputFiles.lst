@@ -80,6 +80,7 @@ E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Col
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Solicitudes\SolicitudColaboracion.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\APIs\WSensor\WSensor.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Colaborador\TipoDeColaboracion\DonarDinero.java
+E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\CronTasks\CronVerificarSolicitudes.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Usuarios\Usuario.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Heladera\Sensores\AdapterSensorPeso.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Exception\SinUsosDisponiblesException.java

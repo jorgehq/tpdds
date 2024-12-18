@@ -7,10 +7,7 @@ import Domain.Repositorios.RepoHeladera;
 import Domain.Server.TemplateRender;
 import io.javalin.http.Context;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HeladeraController {
     public void pantallaPrincipal(Context ctx) {
@@ -18,7 +15,7 @@ public class HeladeraController {
         String usuarioID = ctx.sessionAttribute("usuarioID");
         Map<String, Object> model = new HashMap<>();
         model.put("esAdmin", ctx.sessionAttribute("esAdmin"));
-        List<Heladera> filtradas = new ArrayList<>();
+        Set<Heladera> filtradas;
         if (usuarioID == null) {
             ctx.redirect("/");
         } else {
@@ -33,19 +30,19 @@ public class HeladeraController {
                 int filtroInt = Integer.parseInt(filtro);
                 switch (filtroInt) {
                     case 0:
-                        filtradas = RepoHeladera.getInstance().obtenerTodos().stream().toList();
+                        filtradas = RepoHeladera.getInstance().obtenerTodos();
                         model.put("heladeras", filtradas);
                         break;
                     case 1:
-                        filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato).stream().toList();
+                        filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato);
                         model.put("heladeras", filtradas);
                         break;
                     case 2:
-                        filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato).stream().toList();
+                        filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato);
                         model.put("heladeras", filtradas);
                         break;
                     case 3:
-                        filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato).stream().toList();
+                        filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato);
                         model.put("heladeras", filtradas);
                         break;
                     default:

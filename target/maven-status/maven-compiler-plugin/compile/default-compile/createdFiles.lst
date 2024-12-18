@@ -19,6 +19,7 @@ Domain\Converters\FormaColaboracionConverter.class
 Domain\Persona\Visita.class
 Domain\Ubicacion\Localidad.class
 Domain\Colaborador\PersonaHumana.class
+Domain\CronTasks\CronVerificarSolicitudes.class
 Domain\Repositorios\RepoNotificaciones.class
 Domain\Colaborador\Rubro.class
 Domain\Solicitudes\SolicitudColaboracion.class

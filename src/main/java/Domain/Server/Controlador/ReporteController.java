@@ -115,7 +115,7 @@ public class ReporteController {
             }
 
 
-            TemplateRender.render(ctx, "/reporte.html.hbs", model);
+            TemplateRender.render(ctx, "/Reporte.html.hbs", model);
         }
 
     }
