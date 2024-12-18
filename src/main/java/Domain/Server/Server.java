@@ -1,6 +1,7 @@
 package Domain.Server;
 
 import Domain.CronTasks.CronVerificarSolicitudes;
+import Domain.Repositorios.RepoUsuario;
 import Domain.Server.Controlador.*;
 import io.javalin.Javalin;
 
@@ -74,6 +75,8 @@ public class Server {
 
     int port = Integer.parseInt(System.getenv("PORT"));
     app.start(port);
+
+    RepoUsuario.getInstance().obtenerTodos();
 
     new CronVerificarSolicitudes().verificandoYmandarMensaje();
   }
