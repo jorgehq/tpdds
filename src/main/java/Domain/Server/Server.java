@@ -71,14 +71,11 @@ public class Server {
     app.post("/cuenta", cuentaController::modificarCuenta);
     app.post("/Cerrar", cuentaController::cerrarCuenta);
 
-    app.events(event -> {
-      event.serverStarted(() -> {
-        System.out.println("Servidor levantado. Iniciando cron...");
-        new CronVerificarSolicitudes().verificandoYmandarMensaje();
-      });
-    });
+
     int port = Integer.parseInt(System.getenv("PORT"));
     app.start(port);
+
+    new CronVerificarSolicitudes().verificandoYmandarMensaje();
   }
 
 
