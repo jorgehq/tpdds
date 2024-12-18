@@ -68,7 +68,7 @@ public class ColaboracionController {
                 } catch (Exception e) {
                     model.put("error", "Ocurrió un error inesperado. Inténtalo nuevamente.");
                 }
-                TemplateRender.render(ctx, "/heladeras.html.hbs", model);
+                TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
 
             }
 
