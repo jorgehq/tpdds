@@ -14,16 +14,17 @@ public class CronVerificarSolicitudes {
     }
     public void mostrar(){
       System.out.println("=======================================================");
-      System.out.println("Cron Buscando incidentes cercanos y notificar");
+      System.out.println("Cron Buscando Solicitudes caducadas ");
       System.out.println("=======================================================");
     }
     public void verificandoYmandarMensaje(){
 
       ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-      scheduler.scheduleAtFixedRate(this::mostrar, 0, 100, TimeUnit.SECONDS);
+      scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 100, TimeUnit.SECONDS);
     }
 
     public void verificarSolicitudes(){
+       this.mostrar();
       List<SolicitudColaboracion> lista=RepoSolicitudColaboracion.getInstance().obtenerTodos();
       for(SolicitudColaboracion s:lista){
         if(s.fechaExpiracion.isBefore(LocalDate.now())){

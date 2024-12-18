@@ -6,9 +6,6 @@ import io.javalin.Javalin;
 
 public class Server {
   public void start() {
-
-    new CronVerificarSolicitudes().verificandoYmandarMensaje();
-
     Javalin app = Javalin.create(config -> {
       config.staticFiles.add(staticFileConfig -> {
         staticFileConfig.hostedPath = "/assets";
@@ -74,7 +71,12 @@ public class Server {
     app.post("/cuenta", cuentaController::modificarCuenta);
     app.post("/Cerrar", cuentaController::cerrarCuenta);
 
-
+    app.events(event -> {
+      event.serverStarted(() -> {
+        System.out.println("Servidor levantado. Iniciando cron...");
+        new CronVerificarSolicitudes().verificandoYmandarMensaje();
+      });
+    });
     int port = Integer.parseInt(System.getenv("PORT"));
     app.start(port);
   }
