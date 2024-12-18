@@ -23,30 +23,57 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ColaboracionController {
-    public void principal(Context ctx){
+    public void principal(Context ctx) {
         String usuarioID = ctx.sessionAttribute("usuarioID");
         Map<String, Object> model = new HashMap<>();
-        model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
-
+        model.put("esAdmin", ctx.sessionAttribute("esAdmin"));
+        String dato = ctx.queryParam("eleccion");
         Set<Heladera> filtradas;
-        if(usuarioID==null){
+        if (usuarioID == null) {
             ctx.redirect("/");
-        }else{
-            String filtro=ctx.queryParam("filtro");
-            if(filtro==null){
+        } else {
+            String filtro = ctx.queryParam("filtro");
+            int filtroInt = Integer.parseInt(filtro);
+            if (filtro == null) {
 
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
-            }else{
-                filtradas=RepoHeladera.getInstance().obtenerTodos();
-                model.put("heladeras",filtradas);
-                TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
+            } else {
+                try {
+                    switch (filtroInt) {
+                        case 0:
+                            filtradas = RepoHeladera.getInstance().obtenerTodos();
+                            model.put("heladeras", filtradas);
+                            break;
+                        case 1:
+                            filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato);
+                            model.put("heladeras", filtradas);
+                            break;
+                        case 2:
+                            filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato);
+                            model.put("heladeras", filtradas);
+                            break;
+                        case 3:
+                            filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato);
+                            model.put("heladeras", filtradas);
+                            break;
+                        default:
+                            model.put("error", "El filtro seleccionado no es válido.");
+                            break;
+                    }
+
+                }catch (NumberFormatException e) {
+                    model.put("error", "El filtro debe ser un número válido.");
+                } catch (IllegalArgumentException e) {
+                    model.put("error", "El dato ingresado no es válido.");
+                } catch (Exception e) {
+                    model.put("error", "Ocurrió un error inesperado. Inténtalo nuevamente.");
+                }
+                TemplateRender.render(ctx, "/heladeras.html.hbs", model);
 
             }
 
         }
-
     }
-
     public void eleccionColaboracion(Context ctx){
         String eleccion = ctx.formParam("eleccion");
         if(eleccion==null){

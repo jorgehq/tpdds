@@ -76,10 +76,15 @@ public class Server {
     int port = Integer.parseInt(System.getenv("PORT"));
     app.start(port);
 
-    RepoUsuario.getInstance().obtenerTodos();
+    iniciarBD();
 
     new CronVerificarSolicitudes().verificandoYmandarMensaje();
   }
 
+
+
+  public void iniciarBD(){
+    RepoUsuario.getInstance().obtenerTodos();
+  }
 
 }
