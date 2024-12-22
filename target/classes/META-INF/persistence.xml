@@ -58,10 +58,11 @@
 
         <properties>
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://dpg-ctfk3fggph6c73fncgk0-a.oregon-postgres.render.com:5432/dds_nh8w?sslmode=require" />
-            <property name="javax.persistence.jdbc.user" value="dds_nh8w_user" />
-            <property name="javax.persistence.jdbc.password" value="4wQDYq3D2f3D049JflmkbVWfSgzuKFCX" />
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://dpg-ctfk3fggph6c73fncgk0-a.oregon-postgres.render.com:5432/dds_nh8w?sslmode=require" />
+            <property name="hibernate.connection.username" value="dds_nh8w_user" />
+            <property name="hibernate.connection.password" value="4wQDYq3D2f3D049JflmkbVWfSgzuKFCX" />
+
 
             <!--property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/TPBD"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
