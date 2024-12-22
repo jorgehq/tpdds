@@ -1,28 +1,30 @@
 
-.carga-archivo {
-    display: flex; /* Usamos flexbox para el contenedor principal */
-    justify-content: center; /* Centra horizontalmente el contenido */
-    align-items: center; /* Centra verticalmente el contenido */
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
-    background-color: white; /* Color de fondo para diferenciar el área */
-    margin-top: -250px;
-}
-
-/* Botones en forma de contenedor cuadrado */
-.carga-archivo .form-button {
-    width: 150px; /* Anchura del botón (cuadrado) */
-    height: 150px; /* Altura del botón (cuadrado) */
-    background-color:white; /* Fondo del botón */
-    color: white; /* Color del ícono */
+#imagen {
+    background-color: #28a745;
     border: none;
-    border-radius: 10px; /* Bordes ligeramente redondeados */
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* Efectos suaves */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-/* Íconos dentro del botón */
-.carga-archivo .svg-icon {
-    width: 150px;
-    height: 150px;
-    transition: transform 0.2s, fill 0.2s;
+#imagen:hover {
+    background-color: #218838;
+}
+#imagen svg {
+    width: 200px;
+    height: 200px;
+    fill: #ffffff;
+}
+#archivo_csv {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#archivo_csv input {
+    width: 200px;
 }

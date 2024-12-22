@@ -2,6 +2,9 @@ package Domain.Importador;
 
 import Domain.Colaborador.Colaborador;
 import Domain.Colaborador.FormaColaboracion;
+import Domain.Colaborador.MedioDeContacto.InstantMessageApp;
+import Domain.Colaborador.MedioDeContacto.Mediodecontacto;
+import Domain.Colaborador.PersonaHumana;
 import Domain.Colaborador.TipoDeColaboracion.DistribuirVianda;
 import Domain.Colaborador.TipoDeColaboracion.DonarDinero;
 import Domain.Colaborador.TipoDeColaboracion.DonarVianda;
@@ -15,17 +18,19 @@ import Domain.Repositorios.RepoColaboradores;
 import Domain.Converters.TipoDocumentoConverter;
 import Domain.Repositorios.RepoUsuario;
 import Domain.Repositorios.RepoViandas;
+import Domain.Tarjeta.TarjetaColaborador;
+import Domain.Ubicacion.Direccion;
+import Domain.Ubicacion.Localidad;
+import Domain.Ubicacion.Provincia;
 import Domain.Usuarios.Usuario;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class ImportadorColaboracionCsv {
 
@@ -33,10 +38,9 @@ public class ImportadorColaboracionCsv {
   private TipoDocumentoConverter tipoDocumentoConverter = new TipoDocumentoConverter();
   private FormaColaboracionConverter formaColaboracionConverter = new FormaColaboracionConverter();
 
-  public void importar(String nombreFicheroCSV) {
-    try {
-      String linea = "";
-      BufferedReader br = new BufferedReader(new FileReader(nombreFicheroCSV));
+  public void importar(InputStream inputStream) {
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+      String linea;
       while ((linea = br.readLine()) != null) {
         String[] datoslinea = linea.split(";");
         String tipoDoc = datoslinea[0].trim();
@@ -47,36 +51,58 @@ public class ImportadorColaboracionCsv {
         String fechaDeColaboracion = datoslinea[5].trim();
         String formaDeColaboracion = datoslinea[6].trim();
         String cantidad = datoslinea[7].trim();
+        String fechaNacimiento = datoslinea[8].trim();
+        String provincia = datoslinea[9].trim();
+        String localidad = datoslinea[10].trim();
+        String domicilio = datoslinea[11].trim();
 
-        // conversion de datos
-        TipoDocumento tipoDocumento = tipoDocumentoConverter.stringToTipoDocumento(tipoDoc);
+
         FormaColaboracion formaColaboracion = formaColaboracionConverter.stringToFormaColaboracion(formaDeColaboracion);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaColaboracion = LocalDate.parse(fechaDeColaboracion, formatter);
+        LocalDate nacimiento=LocalDate.parse(fechaNacimiento, formatter);
         int cantidadI = Integer.parseInt(cantidad);
-        long documentoL = Long.parseLong(documento);
 
 
-        // verificar si tiene usuario
-        // si no tiene, hay q crearlo
-        Usuario usuario = RepoUsuario.getInstance().buscarPorNombreReal(nombre).get(0);
 
-        List<TipoDeColaboracion> colaboracion = fabricaColaboraciones(fechaColaboracion, formaColaboracion, cantidadI,usuario.getAsignado());
-        // agrego al repo de colaboraciones
-        for(TipoDeColaboracion t:colaboracion){
+        if (RepoUsuario.getInstance().buscarPorNombre(mail).size()==0) {
+          Usuario u = new Usuario(nombre, apellido, mail, "1234");
+
+            List<Mediodecontacto> medios = new ArrayList<>();
+            medios.add(new Mediodecontacto(mail, InstantMessageApp.MAIL));
+
+            Colaborador c = new PersonaHumana(nombre, apellido, nacimiento, new Direccion(Provincia.valueOf(provincia), Localidad.valueOf(localidad), domicilio)
+                    , medios, TipoDocumento.valueOf(tipoDoc), Long.parseLong(documento));
+
+            Random random = new Random();
+            int numeroAleatorio = random.nextInt(1000000) + 1;
+            TarjetaColaborador t = new TarjetaColaborador(String.valueOf(numeroAleatorio), LocalDate.now());
+
+              t.setColaborador(c);
+              c.setTarjeta(t);
+
+              RepoColaboradores.getInstance().guardar(c);
+
+              u.asignarColaborador(c);
+
+
+              RepoUsuario.getInstance().guardar(u);
+
+          }
+        Usuario usuario = RepoUsuario.getInstance().buscarPorNombre(mail).get(0);
+        List<TipoDeColaboracion> colaboracion = fabricaColaboraciones(fechaColaboracion, formaColaboracion, cantidadI, usuario.getAsignado());
+
+        for (TipoDeColaboracion t : colaboracion) {
           RepoColaboraciones.getInstance().guardar(t);
           colaboraciones.add(t);
         }
 
+
+        }
+      } catch(IOException e){
+        throw new RuntimeException("Error al leer el archivo CSV: " + e.getMessage(), e);
       }
 
-
-      br.close();
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
   }
 
   public List<TipoDeColaboracion> fabricaColaboraciones(LocalDate fechaColaboracion, FormaColaboracion formaColaboracion, int cantidadI,Colaborador co){
@@ -85,21 +111,21 @@ public class ImportadorColaboracionCsv {
       case DINERO:
         lista.add(new DonarDinero(cantidadI,fechaColaboracion, FrecuenciaDeDonacion.UNICO));
 
-      break;
+        break;
       case DONACION_VIANDAS:
         for(int i=0;i<cantidadI;i++){
           Vianda v=new Vianda(fechaColaboracion.plusYears(1), fechaColaboracion, 1000, 4, true,co, null);
           lista.add(new DonarVianda(fechaColaboracion,
-              v));
+                  v));
         }
 
-      break;
+        break;
       case REDISTRIBUCION_VIANDAS:
-          lista.add(new DistribuirVianda(null,null,cantidadI,"",fechaColaboracion));
-      break;
+        lista.add(new DistribuirVianda(null,null,cantidadI,"",fechaColaboracion));
+        break;
 
       default:
-      break;
+        break;
     }
     return lista;
   }

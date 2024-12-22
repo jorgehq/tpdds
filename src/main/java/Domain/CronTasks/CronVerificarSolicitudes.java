@@ -22,18 +22,32 @@ public class CronVerificarSolicitudes {
       ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
       scheduler.schedule(() -> {
 
-        scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 1000, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::verificarSolicitudes, 0, 180, TimeUnit.SECONDS);
       }, 30, TimeUnit.SECONDS);
     }
 
     public void verificarSolicitudes(){
        this.mostrar();
       List<SolicitudColaboracion> lista=RepoSolicitudColaboracion.getInstance().obtenerTodos();
-      System.out.println("==============================Lista: "+lista.size());
+      System.out.println("==============================Cantidad Solicitudes en Lista: "+lista.size()+" ===========================================");
       for(SolicitudColaboracion s:lista){
-        if(s.fechaExpiracion.isBefore(LocalDate.now())){
+          System.out.println("=======================================================");
+          System.out.println(s.fechaExpiracion);
+          System.out.println("esta expirado??? "+s.fechaExpiracion.isBefore(LocalDate.now()));
+          System.out.println("Ya se notifico??? "+s.isExpired());
+          System.out.println("=======================================================");
+
+        if(s.fechaExpiracion.isBefore(LocalDate.now()) && !s.isExpired()){
           s.setExpired(true);
           RepoSolicitudColaboracion.getInstance().guardar(s);
+            System.out.println("=======================================================");
+            System.out.println("Se encontro una solicitud expirada");
+            System.out.println("=======================================================");
+
+        }else{
+            System.out.println("=======================================================");
+            System.out.println("Solicitud "+s.getId()+" no esta expirada");
+            System.out.println("=======================================================");
         }
       }
      }

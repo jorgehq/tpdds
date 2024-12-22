@@ -3,6 +3,7 @@ package Domain.Tarjeta;
 import Domain.Exception.CodigoInvalidoException;
 import Domain.Exception.SinUsosDisponiblesException;
 import Domain.Heladera.Heladera;
+import Domain.Persona.PersonaVulnerable;
 import Domain.Repositorios.RepoTarjetas;
 import jakarta.persistence.*;
 
@@ -21,6 +22,8 @@ public class Tarjeta {
   private String codigo; // Podriamos hacer la validacion en el formulario
   @Column
   private LocalDate fechaRegistro;
+
+
 
   public Tarjeta() {
   }

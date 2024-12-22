@@ -27,16 +27,24 @@ public class CronVerificandoIntegridadHeladeras {
     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     scheduler.schedule(() -> {
 
-      scheduler.scheduleAtFixedRate(this::verificarHeladeras, 0, 1000, TimeUnit.SECONDS);
+      scheduler.scheduleAtFixedRate(this::verificarHeladeras, 0, 180, TimeUnit.SECONDS);
     }, 30, TimeUnit.SECONDS);
   }
 
   public void verificarHeladeras(){
     this.mostrar();
     Set<Heladera> lista= RepoHeladera.getInstance().obtenerTodos();
-    System.out.println("==============================Lista: "+lista.size());
+    System.out.println("=======================================================");
+
+    System.out.println("==============================Hay  "+lista.size()+" heladeras en la lista total");
+
+    System.out.println("=======================================================");
     for(Heladera s:lista){
       if(s.getViandasEnHeladera().size()<20){
+        System.out.println("=======================================================");
+        System.out.println("SE detecto falta de viandas en la healdera "+s.getNombre()+" Mandando notificaciones faltantes");
+        System.out.println("=======================================================");
+
         s.notificarInteresados(new NotificacionFaltanViandas(s.getCapacidadDeViandas()-s.getViandasEnHeladera().size(),s));
 
       }

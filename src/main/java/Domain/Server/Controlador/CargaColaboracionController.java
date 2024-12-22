@@ -3,7 +3,13 @@ package Domain.Server.Controlador;
 import Domain.Importador.ImportadorColaboracionCsv;
 import Domain.Server.TemplateRender;
 import io.javalin.http.Context;
+import io.javalin.http.UploadedFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +20,19 @@ public class CargaColaboracionController {
         TemplateRender.render(ctx, "/cargarColaboraciones.html.hbs", model);
     }
 
-    public void cargar_archivo(Context ctx){
-        String archivoCSV = "migracion.csv";
+    public void cargar_archivo(Context ctx) throws IOException {
+        Map<String, Object> model = new HashMap<>();
+        model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
+
+        UploadedFile file = ctx.uploadedFile("archivo_csv"); // "archivo_csv" es el nombre del input del formulario
+
         ImportadorColaboracionCsv importador = new ImportadorColaboracionCsv();
 
-        importador.importar(archivoCSV);
+        importador.importar(file.content());
 
-        ctx.redirect("/colaboracion");
+        TemplateRender.render(ctx, "/cargarColaboraciones.html.hbs", model);
+
+
+        }
     }
-}
+

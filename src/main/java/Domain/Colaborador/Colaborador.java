@@ -136,7 +136,7 @@ public abstract class Colaborador {
 
        RepoColaboradores.getInstance().merge(this);
 
-         System.out.println("Cantidad notificaciones en lista "+ notificaciones.size());
+         System.out.println("Cantidad notificaciones en lista "+ notificaciones.size()+"del usuario "+this.getDocumento());
          mediosDeContacto.forEach(a->a.enviarMensaje(n.generarMensaje()));
      }
      public void aceptarSugerenciaNotificacion(int i,int cantidad){

@@ -127,7 +127,7 @@ public class SolicitudColaboracion {
 
   public boolean isExpired() {
     // Compara la fecha de expiración con la fecha actual
-    return fechaExpiracion.isBefore(LocalDate.now());
+    return expired;
   }
   public void instanciarColaboracion(){
     System.out.println("================================Comensando Fabrica");

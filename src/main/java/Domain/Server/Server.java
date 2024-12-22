@@ -64,7 +64,7 @@ public class Server {
     app.post("/reporte/descargar", reporteController::descargarReporte);
 
     app.get("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
-    app.post("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
+    app.post("/colaboracion/archivo", cargaColaboracionController::cargar_archivo);
 
     app.get("/notificaciones", notificacionController::pantallaNotificaciones);
     app.post("/notificaciones", notificacionController::aceptarNotificacion);
@@ -79,8 +79,8 @@ public class Server {
 
     iniciarBD();
 
-  //  new CronVerificarSolicitudes().verificandoYmandarMensaje();
-   // new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
+   new CronVerificarSolicitudes().verificandoYmandarMensaje();
+   new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
   }
 
 

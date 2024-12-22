@@ -22,18 +22,23 @@ public class SugerenciaAlAzar extends Sugerencia {
 
     @Override
     public void sugerencias(Heladera h) {
-        List<Heladera> todasHeladeras = RepoHeladera.getInstance().obtenerTodos().stream().toList();
-        todasHeladeras.removeIf(heladera -> heladera.getId().equals(h.getId()));
-        Random random = new Random();
+        List<Heladera> todasHeladeras = new ArrayList<>(RepoHeladera.getInstance().obtenerTodos());
 
+        todasHeladeras.removeIf(heladera -> heladera.getId().equals(h.getId()) );
+        todasHeladeras.removeIf(heladera -> heladera.getEstado().getHeladeraAveriada());
 
-        int indice = random.nextInt(todasHeladeras.size());
-
-
-        while(todasHeladeras.get(indice).equals(h)){
-            indice = random.nextInt(todasHeladeras.size());
+        if (todasHeladeras.isEmpty()) {
+            System.out.println("==================================No hay más heladeras========================================");
+            this.h = null;
+        } else {
+            Random random = new Random();
+            int indice = random.nextInt(todasHeladeras.size());
+            while (todasHeladeras.get(indice).equals(h)) {
+                indice = random.nextInt(todasHeladeras.size());
+            }
+            this.h = todasHeladeras.get(indice);
         }
-       this.h=todasHeladeras.get(indice);
+
 
     }
 

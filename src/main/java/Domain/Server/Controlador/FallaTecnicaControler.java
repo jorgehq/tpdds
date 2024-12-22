@@ -36,17 +36,29 @@ public class FallaTecnicaControler {
 
 
         Heladera h= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraId));
-        h.getEstado().marcarComoInactiva();
-        Colaborador c= RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
+        if(h.getEstado().getHeladeraAveriada()){
+            ctx.redirect("/heladeras");
+        }else{
+            h.getEstado().marcarComoInactiva();
+            Colaborador c= RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
 
-        FallaTecnica falla=new FallaTecnica(LocalDateTime.now(),h,descripcion,foto,c);
-        RepoFallaTecnica.getInstance().guardar(falla);
+            FallaTecnica falla=new FallaTecnica(LocalDateTime.now(),h,descripcion,foto,c);
 
-        Sugerencia s= new SugerenciaAlAzar();
-        s.sugerencias(h);
-        h.notificarInteresados(new NotificacionIncidente(h,s,falla.getDescripcion()));
-        RepoHeladera.getInstance().guardar(h);
 
-        ctx.redirect("/heladeras");
+            Sugerencia s= new SugerenciaAlAzar();
+            s.sugerencias(h);
+            if(s.getHeladera()!=null){
+
+                RepoFallaTecnica.getInstance().guardar(falla);
+
+                h.notificarInteresados(new NotificacionIncidente(h,s,falla.getDescripcion()));
+
+                RepoHeladera.getInstance().guardar(h);
+            }
+
+            ctx.redirect("/heladeras");
+
+        }
+
     }
 }

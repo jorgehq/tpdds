@@ -71,7 +71,6 @@ public class HeladeraController {
                 Heladera h=RepoHeladera.getInstance().buscarPorId(Long.parseLong(id));
                 boolean yaSuscrito = h.getInteresados().stream()
                         .anyMatch(c -> c.getId().equals(colaborador.getId()));
-                System.out.println("========================Suscripcion= "+yaSuscrito);
                 if (!yaSuscrito) {
                     h.suscribirse(colaborador);
                     RepoHeladera.getInstance().guardar(h);
@@ -80,10 +79,14 @@ public class HeladeraController {
             }
             ctx.redirect("/heladeras");
         }else{
+            if(heladeras.size()==0){
+                ctx.redirect("/heladeras");
+            }else{
+                Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeras.get(0)));
 
-            Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeras.get(0)));
+                ctx.redirect("/falla?heladeraID="+heladera.getId());
+            }
 
-            ctx.redirect("/falla?heladeraID="+heladera.getId());
         }
 
     }
