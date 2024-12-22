@@ -79,8 +79,8 @@ public class Server {
 
     iniciarBD();
 
-   new CronVerificarSolicitudes().verificandoYmandarMensaje();
-   new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
+   //new CronVerificarSolicitudes().verificandoYmandarMensaje();
+   //new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
   }
 
 
