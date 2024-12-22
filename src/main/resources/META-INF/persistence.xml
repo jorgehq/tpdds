@@ -57,7 +57,6 @@
 
 
         <properties>
-
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- Usa 'update' para mantener los datos entre reinicios -->
 
@@ -70,6 +69,18 @@
             <property name="javax.persistence.jdbc.user" value="dds_nh8w_user" />
             <property name="javax.persistence.jdbc.password" value="4wQDYq3D2f3D049JflmkbVWfSgzuKFCX" />
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+
+            <!--property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/TPBD"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="1234"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="use_sql_comments" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/-->
 
 
         </properties>

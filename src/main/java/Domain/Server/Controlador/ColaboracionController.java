@@ -196,8 +196,11 @@ public class ColaboracionController {
         datos.put("calorias", calorias);
 
         RepoColaboraciones.getInstance().guardar(t);
+        System.out.println("===========================Rompio Aca porque no se creo correctamente=============================");
+        TipoDeColaboracion abtenido=RepoColaboraciones.getInstance().buscarPorId(t.getId());
+        System.out.println( "SE obtubo "+abtenido.getId()+" "+abtenido.getFecha());
 
-        colaborador.getTarjeta().agregarSolicitud(t,heladera,datos,1);
+        colaborador.getTarjeta().agregarSolicitud(abtenido,heladera,datos,1);
 
 
         ctx.redirect("/colaboracion");
