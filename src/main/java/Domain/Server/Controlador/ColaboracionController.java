@@ -197,7 +197,9 @@ public class ColaboracionController {
 
         RepoColaboraciones.getInstance().guardar(t);
         System.out.println("===========================Rompio Aca porque no se creo correctamente=============================");
+
         TipoDeColaboracion abtenido=RepoColaboraciones.getInstance().buscarPorId(t.getId());
+
         System.out.println( "SE obtubo "+abtenido.getId()+" "+abtenido.getFecha());
 
         colaborador.getTarjeta().agregarSolicitud(abtenido,heladera,datos,1);
