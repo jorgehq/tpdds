@@ -34,7 +34,6 @@ public class RepoHeladera {
   public Heladera buscarPorId(Long id) {
 
     Heladera heladera = em.find(Heladera.class, id);
-    heladera.getEstado().iniciarSensores();
     return heladera;
   }
 
