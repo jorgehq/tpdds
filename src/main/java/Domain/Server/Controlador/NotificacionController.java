@@ -56,13 +56,13 @@ public class NotificacionController {
                             cantidadFaltante.add(n.getHeladera().getCapacidadDeViandas() - n.getHeladera().cantidadViandas());
                             cantidadDonada.add(n.getHeladera().cantidadSolicitudesVianda());
                             tiposNotificacion.add("FaltanViandas");
-                            enlaces.add("/donar_vianda?heladeraID="+n.getHeladera().getId());
+                            enlaces.add("/colaboracion/vianda?heladeraID="+n.getHeladera().getId());
 
                         } else if (n instanceof NotificacionIncidente) {
                             cantidadFaltante.add(n.getHeladera().cantidadViandas());
                             cantidadDonada.add(n.getHeladera().cantidadSolicitudesDistribucion());
                             tiposNotificacion.add("Incidente");
-                            enlaces.add("/distribuir_vianda?heladeraId="+n.getHeladera().getId()+"&heladeraId2="+((NotificacionIncidente) n).getSugerencia().getHeladera().getId());
+                            enlaces.add("/colaboracion/distribucion?heladeraId="+n.getHeladera().getId()+"&heladeraId2="+((NotificacionIncidente) n).getSugerencia().getHeladera().getId());
                         } else {
                             tiposNotificacion.add("Otro");
                         }

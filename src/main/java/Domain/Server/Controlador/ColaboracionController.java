@@ -245,7 +245,7 @@ public class ColaboracionController {
         Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
         Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraid));
 
-        if(heladera.getEstado().getHeladeraAveriada()){
+        if(heladera.getEstado().getHeladeraAveriada() && heladera.getViandasEnHeladera().size()!=0){
             TipoDeColaboracion t=new DistribuirVianda();
 
 
