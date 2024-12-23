@@ -3,6 +3,7 @@ package Domain.Colaborador.TipoDeColaboracion;
 import Domain.Heladera.Heladera;
 import Domain.Heladera.Vianda;
 import Domain.Repositorios.RepoHeladera;
+import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,15 +27,12 @@ public class FabricaColaboraciones {
 
       switch (tipo.toLowerCase()) {
         case "donarvianda":
-          System.out.println("Fecah caducidad "+datos.get("fechaCaducidad")+" =============================================================");
-
-          LocalDate fecha=LocalDate.parse(datos.get("fechaCaducidad"));
 
           Vianda vianda = new Vianda(LocalDate.parse(datos.get("fechaCaducidad"))
                   ,LocalDate.now(),Integer.valueOf(datos.get("calorias"))
                   ,Integer.valueOf(datos.get("peso")),true,null,null);
 
-          return new DonarVianda( LocalDate.parse(datos.get("fecha")),vianda);
+          return new DonarVianda(LocalDate.now(),vianda);
         case "distribuirvianda":
           Heladera origen = RepoHeladera.getInstance().buscarPorId(Long.parseLong(datos.get("origen")));
           Heladera destino = RepoHeladera.getInstance().buscarPorId(Long.parseLong(datos.get("destino")));
