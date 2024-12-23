@@ -94,7 +94,8 @@ public class ImportadorColaboracionCsv {
 
         for (TipoDeColaboracion t : colaboracion) {
           RepoColaboraciones.getInstance().guardar(t);
-          colaboraciones.add(t);
+          usuario.getAsignado().getColaboraciones().add(t);
+          RepoColaboradores.getInstance().guardar(usuario.getAsignado());
         }
 
 
