@@ -48,9 +48,9 @@ public class NotificacionController {
 
                     for (Notificacion n : filtradas) {
 
-                        cantidadActual.add(n.getHeladera().cantidadViandas());
+                        Heladera h= RepoHeladera.getInstance().buscarPorId(n.getId());
 
-
+                        cantidadActual.add(h.cantidadViandas());
 
                         if (n instanceof NotificacionFaltanViandas) {
                             cantidadFaltante.add(n.getHeladera().getCapacidadDeViandas() - n.getHeladera().cantidadViandas());

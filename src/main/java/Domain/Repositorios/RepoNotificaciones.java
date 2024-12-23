@@ -43,7 +43,13 @@ public class RepoNotificaciones {
     List<Notificacion> notis = query.getResultList();
     return notis;
   }
-
+  public List<Notificacion> obtenerNotificacionesPorColaborador(Long colaboradorId) {
+    String jpql = "SELECT n FROM Notificacion n " +
+            "JOIN Colaboradores c WHERE c.id = :colaboradorId";
+    TypedQuery<Notificacion> query = em.createQuery(jpql, Notificacion.class);
+    query.setParameter("colaboradorId", colaboradorId);
+    return query.getResultList();
+  }
   public void guardar(Notificacion noti) {
     em.getTransaction().begin();
     em.persist(noti);
