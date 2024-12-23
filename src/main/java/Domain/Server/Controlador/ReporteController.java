@@ -51,26 +51,21 @@ public class ReporteController {
                 case 1: //Viandas retiradas y colocadas
                     Map<Heladera, Integer> reporteEntradaSalida = new HashMap<>();
                     List<Heladera> heladeras2 = RepoHeladera.getInstance().obtenerTodos().stream().toList();
-                    List<TipoDeColaboracion> colaboraciones = RepoColaboraciones.getInstance().obtenerTodos();
-                    List<DonarVianda> donaciones = new ArrayList<>();
+                    List<DonarVianda> colaboraciones = RepoColaboraciones.getInstance().obtenerDonacionesViandas();
 
-                    for (TipoDeColaboracion t : colaboraciones) {
-                        if (t instanceof DonarVianda) {
-                            donaciones.add((DonarVianda) t);
-                        }
-                    }
+
                     int cantidad = 0;
                     for (Heladera h : heladeras2) {
 
-                        cantidad += donaciones.stream()
-                            .filter(d -> d.getVianda().getHeladera() != null) // Verifica que la heladera no sea nula
-                            .filter(d -> d.getVianda().getHeladera().getId().equals(h.getId())) // Coincide con la heladera actual
+                        cantidad += colaboraciones.stream()
+                            .filter(d -> d.getVianda().getHeladera() != null)
+                            .filter(d -> d.getVianda().getHeladera().getId().equals(h.getId()))
                             .toList().size();
 
-                        // Filtrar movimientos de tarjeta donde la heladera no sea nula y coincida con la heladera actual
+
                         cantidad += RepoMovimientoTarjeta.getInstance().obtenerTodos().stream()
-                            .filter(m -> m.heladera != null) // Verifica que la heladera no sea nula
-                            .filter(m -> m.heladera.getId().equals(h.getId())) // Coincide con la heladera actual
+                            .filter(m -> m.heladera != null)
+                            .filter(m -> m.heladera.getId().equals(h.getId()))
                             .toList().size();
 
                         reporteEntradaSalida.put(h, cantidad);
@@ -83,18 +78,12 @@ public class ReporteController {
                     Map<Colaborador, Integer> reporteViandasPorColaborador = new HashMap<>();
 
                     List<Colaborador> colaboradores = RepoColaboradores.getInstance().obtenerTodos();
-                    List<TipoDeColaboracion> colaboraciones2 = RepoColaboraciones.getInstance().obtenerTodos();
-                    List<DonarVianda> donaciones2 = new ArrayList<>();
+                    List<DonarVianda> donaciones = RepoColaboraciones.getInstance().obtenerDonacionesViandas();
 
-                    for (TipoDeColaboracion t : colaboraciones2) {
-                        if (t instanceof DonarVianda) {
-                            donaciones2.add((DonarVianda) t);
-                        }
-                    }
                     for (Colaborador c : colaboradores) {
                         int cantidad3 = 0;
 
-                        cantidad3 += donaciones2.stream().filter(d -> d.getVianda().getHeladera() != null)
+                        cantidad3 += donaciones.stream().filter(d -> d.getVianda().getHeladera() != null)
                             .filter(d -> d.getVianda().getColaborador().getId() == c.getId()).toList().size();
                         reporteViandasPorColaborador.put(c, cantidad3);
                     }

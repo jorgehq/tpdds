@@ -75,8 +75,8 @@ public class Server {
     app.post("/Colaborar", cuentaController::AceptarTodasColaboraciones);
 
 
-    int port = Integer.parseInt(System.getenv("PORT"));
-    app.start(port);
+   // int port = Integer.parseInt(System.getenv("PORT"));
+    app.start(7000);
 
     iniciarBD();
 

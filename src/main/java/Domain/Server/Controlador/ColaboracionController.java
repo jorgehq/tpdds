@@ -304,8 +304,6 @@ public class ColaboracionController {
 
         j.agregarHeladera(heladera);
 
-        RepoHeladera.getInstance().guardar(heladera);
-
         RepoColaboraciones.getInstance().guardar(t);
 
         colaborador.realizarColaboracion(t);
@@ -354,6 +352,8 @@ public class ColaboracionController {
         co.realizarColaboracion(r);
 
         RepoColaboradores.getInstance().guardar(co);
+
+        RepoTarjetas.getInstance().guardar(tj);
 
 
 

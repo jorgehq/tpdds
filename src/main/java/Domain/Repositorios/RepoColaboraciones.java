@@ -1,5 +1,6 @@
 package Domain.Repositorios;
 
+import Domain.Colaborador.TipoDeColaboracion.DonarVianda;
 import Domain.Colaborador.TipoDeColaboracion.TipoDeColaboracion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -43,7 +44,12 @@ public class RepoColaboraciones {
     List<TipoDeColaboracion> colaboraciones = query.getResultList();
     return colaboraciones;
   }
-
+  public List<DonarVianda> obtenerDonacionesViandas() {
+    TypedQuery<DonarVianda> query = em.createQuery(
+            "SELECT d FROM DonarVianda d", DonarVianda.class
+    );
+    return query.getResultList();
+  }
 
   public void guardar(TipoDeColaboracion c) {
     em.getTransaction().begin();
