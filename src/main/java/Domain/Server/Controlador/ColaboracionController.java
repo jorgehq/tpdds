@@ -297,9 +297,7 @@ public class ColaboracionController {
             ,LocalDate.now(), BigDecimal.valueOf(Integer.valueOf(tmaximo)),BigDecimal.valueOf(Integer.valueOf(tminimo)));
 
 
-        TipoDeColaboracion t=new HacerseCargoDeHeladera(new Heladera(nombre,Integer.valueOf(capacidad),latitud,longitud,
-                new Direccion(Provincia.valueOf(provincia), Localidad.valueOf(localidad), direccion)
-                ,LocalDate.now(), BigDecimal.valueOf(Integer.valueOf(tmaximo)),BigDecimal.valueOf(Integer.valueOf(tminimo))));
+        TipoDeColaboracion t=new HacerseCargoDeHeladera(heladera);
 
 
         PersonaJuridica j=(PersonaJuridica) colaborador;
@@ -307,8 +305,11 @@ public class ColaboracionController {
         j.agregarHeladera(heladera);
 
         RepoHeladera.getInstance().guardar(heladera);
+
         RepoColaboraciones.getInstance().guardar(t);
+
         colaborador.realizarColaboracion(t);
+
         RepoColaboradores.getInstance().guardar(colaborador);
 
         ctx.redirect("/colaboracion");
