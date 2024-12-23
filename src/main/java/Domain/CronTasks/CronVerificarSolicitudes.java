@@ -31,11 +31,6 @@ public class CronVerificarSolicitudes {
       List<SolicitudColaboracion> lista=RepoSolicitudColaboracion.getInstance().obtenerTodos();
       System.out.println("==============================Cantidad Solicitudes en Lista: "+lista.size()+" ===========================================");
       for(SolicitudColaboracion s:lista){
-          System.out.println("=======================================================");
-          System.out.println(s.fechaExpiracion);
-          System.out.println("esta expirado??? "+s.fechaExpiracion.isBefore(LocalDate.now()));
-          System.out.println("Ya se notifico??? "+s.isExpired());
-          System.out.println("=======================================================");
 
         if(s.fechaExpiracion.isBefore(LocalDate.now()) && !s.isExpired()){
           s.setExpired(true);

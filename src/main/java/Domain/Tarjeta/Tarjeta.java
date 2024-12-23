@@ -23,7 +23,7 @@ public class Tarjeta {
   @Column
   private LocalDate fechaRegistro;
 
-
+ private Boolean esnUso=false;
 
   public Tarjeta() {
   }
@@ -37,6 +37,10 @@ public class Tarjeta {
     }
     this.fechaRegistro = fechaRegistro;
 
+  }
+
+  public void setEsnUso(Boolean esnUso) {
+    this.esnUso = esnUso;
   }
 
   public void utilizarTarjeta(Integer cantidadDeMenoresACargo, Heladera heladera) {

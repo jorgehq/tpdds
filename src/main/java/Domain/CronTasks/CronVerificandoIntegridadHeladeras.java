@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class CronVerificandoIntegridadHeladeras {
   public CronVerificandoIntegridadHeladeras() {
@@ -33,16 +34,20 @@ public class CronVerificandoIntegridadHeladeras {
 
   public void verificarHeladeras(){
     this.mostrar();
-    Set<Heladera> lista= RepoHeladera.getInstance().obtenerTodos();
+    Set<Heladera> lista = RepoHeladera.getInstance()
+            .obtenerTodos()
+            .stream()
+            .filter(h -> !h.getEstado().getHeladeraAveriada())
+            .collect(Collectors.toSet());
     System.out.println("=======================================================");
 
-    System.out.println("==============================Hay  "+lista.size()+" heladeras en la lista total");
+    System.out.println("Hay  "+lista.size()+" heladeras en buen estado en la lista total");
 
     System.out.println("=======================================================");
     for(Heladera s:lista){
       if(s.getViandasEnHeladera().size()<20){
         System.out.println("=======================================================");
-        System.out.println("SE detecto falta de viandas en la healdera "+s.getNombre()+" Mandando notificaciones faltantes");
+        System.out.println("SE detecto falta de viandas en la heladera "+s.getNombre()+" Mandando notificaciones faltantes");
         System.out.println("=======================================================");
 
         s.notificarInteresados(new NotificacionFaltanViandas(s.getCapacidadDeViandas()-s.getViandasEnHeladera().size(),s));

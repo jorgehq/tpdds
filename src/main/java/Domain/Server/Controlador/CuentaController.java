@@ -3,15 +3,17 @@ package Domain.Server.Controlador;
 import Domain.Colaborador.PersonaHumana;
 import Domain.Colaborador.PersonaJuridica;
 import Domain.Heladera.Heladera;
+import Domain.Repositorios.RepoSolicitudColaboracion;
+import Domain.Repositorios.RepoTarjetas;
 import Domain.Repositorios.RepoUsuario;
 import Domain.Server.TemplateRender;
+import Domain.Solicitudes.SolicitudColaboracion;
+import Domain.Tarjeta.Tarjeta;
 import Domain.Usuarios.Usuario;
 import io.javalin.http.Context;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CuentaController {
     public void pantalla_cuenta_principal(Context ctx) {
@@ -88,5 +90,21 @@ public class CuentaController {
         ctx.sessionAttribute("usuarioID",null);
         ctx.sessionAttribute("esAdmin",null);
         ctx.redirect("/");
+    }
+    public void AceptarTodasColaboraciones(Context ctx){
+        String sesion = ctx.sessionAttribute("usuarioID");
+        Usuario o = RepoUsuario.getInstance().buscarPorIdColaborador(Long.parseLong(sesion));
+        Set<SolicitudColaboracion> todas= RepoSolicitudColaboracion.getInstance()
+                .obtenerTodos().stream().filter(t->t.tarjeta.getCodigo().equals(o.getAsignado().getTarjeta().getCodigo())
+                        && t.realizada==false )
+                .collect(Collectors.toSet());
+        System.out.println("cantidad solicitudes "+todas.size());
+        for(SolicitudColaboracion s:todas){
+            System.out.println("========================================");
+            System.out.println("Instanciando la solicitud "+s.getId());
+            s.instanciarColaboracion();
+
+        }
+
     }
 }

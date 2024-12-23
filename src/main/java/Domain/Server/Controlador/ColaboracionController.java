@@ -337,6 +337,7 @@ public class ColaboracionController {
                 Optional.of(dni),Integer.valueOf(cantidadHijos));
 
         p.asignarTarjeta(tj);
+        tj.setEsnUso(true);
 
         RepositorioPersonasVulnerables.getInstance().guardar(p);
 
@@ -347,6 +348,8 @@ public class ColaboracionController {
         co.realizarColaboracion(r);
 
         RepoColaboradores.getInstance().guardar(co);
+
+
 
 
         ctx.redirect("/colaboracion");

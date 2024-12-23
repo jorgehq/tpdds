@@ -139,11 +139,7 @@ public abstract class Colaborador {
          System.out.println("Cantidad notificaciones en lista "+ notificaciones.size()+"del usuario "+this.getDocumento());
          mediosDeContacto.forEach(a->a.enviarMensaje(n.generarMensaje()));
      }
-     public void aceptarSugerenciaNotificacion(int i,int cantidad){
-         notificaciones.stream().toList().get(i).aceptarSugerencia(cantidad);
-         //crearSolicitudApertura()
 
-     }
   public void registrarSolicitudColaboracion (TipoDeColaboracion colaboracion, Heladera heladera, Map<String, String> datos,int cantidad) {
     this.tarjeta.agregarSolicitud(colaboracion, heladera,datos,cantidad);
   }

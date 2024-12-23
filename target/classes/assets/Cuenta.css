@@ -15,3 +15,11 @@
 #botonCerrarCuenta input {
     width: 200px;
 }
+#botonColaborarCuenta {
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#botonColaborarCuenta input {
+    width: 200px;
+}

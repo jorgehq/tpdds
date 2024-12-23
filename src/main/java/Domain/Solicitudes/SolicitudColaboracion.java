@@ -145,6 +145,7 @@ public class SolicitudColaboracion {
 
     }
     colaboracion=nueva;
+    realizada=true;
 
     System.out.println("================================Fabrica creada");
 

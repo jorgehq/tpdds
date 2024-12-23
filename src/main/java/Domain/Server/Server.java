@@ -72,6 +72,7 @@ public class Server {
     app.get("/cuenta", cuentaController::pantalla_cuenta_principal);
     app.post("/cuenta", cuentaController::modificarCuenta);
     app.post("/Cerrar", cuentaController::cerrarCuenta);
+    app.post("/Colaborar", cuentaController::AceptarTodasColaboraciones);
 
 
     int port = Integer.parseInt(System.getenv("PORT"));
