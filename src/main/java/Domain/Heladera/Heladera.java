@@ -152,10 +152,17 @@ public class Heladera {
     if(n instanceof NotificacionIncidente){
       marcarComoInactiva();
     }
-    RepoNotificaciones.getInstance().guardar(n);
 
     for(Colaborador c:interesados){
-      c.realizarNotificacionPor(n);
+      for(Notificacion noti:c.getNotificaciones()){
+        if(noti.getHeladera()==n.getHeladera() && n.getTipoNotificacion().equals(noti.getTipoNotificacion())){
+          System.out.println("========================= Ya entregado =================================");
+          return;
+        }else{
+          RepoNotificaciones.getInstance().guardar(n);
+          c.realizarNotificacionPor(n);
+        }
+      }
     }
   }
   public int cantidadSolicitudesVianda(){
