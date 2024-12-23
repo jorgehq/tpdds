@@ -186,6 +186,11 @@ public class ColaboracionController {
         Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
         Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraid));
 
+        if(heladera.getEstado().getHeladeraAveriada()){
+            ctx.redirect("/colaboracion");
+            System.out.println("====================La heladera esta averiada=========================");
+            return;
+        }
         TipoDeColaboracion t=new DonarVianda();
 
         Map<String,String> datos=new HashMap<>();

@@ -105,6 +105,7 @@ public class CuentaController {
             s.instanciarColaboracion();
 
         }
+        ctx.redirect("/cuenta");
 
     }
 }
