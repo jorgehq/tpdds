@@ -5,6 +5,7 @@ import Domain.Heladera.Vianda;
 import Domain.Repositorios.RepoHeladera;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class FabricaColaboraciones {
@@ -21,9 +22,16 @@ public class FabricaColaboraciones {
     }
 
     public static TipoDeColaboracion completarColaboracion(String tipo, Map<String, String> datos) {
+
+
       switch (tipo.toLowerCase()) {
         case "donarvianda":
-          Vianda vianda = new Vianda(LocalDate.parse(datos.get("fechaCaducidad")),LocalDate.now(),Integer.valueOf(datos.get("calorias"))
+          System.out.println("Fecah caducidad "+datos.get("fechaCaducidad")+" =============================================================");
+
+          LocalDate fecha=LocalDate.parse(datos.get("fechaCaducidad"));
+
+          Vianda vianda = new Vianda(LocalDate.parse(datos.get("fechaCaducidad"))
+                  ,LocalDate.now(),Integer.valueOf(datos.get("calorias"))
                   ,Integer.valueOf(datos.get("peso")),true,null,null);
 
           return new DonarVianda( LocalDate.parse(datos.get("fecha")),vianda);
