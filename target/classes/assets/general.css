@@ -1,11 +1,14 @@
 body {
     margin: 0 !important;
     padding: 0 !important;
+
 }
 
 .form-floating > .form-control, .form-floating > .form-control-plaintext, .form-floating > .form-select {
     height: 52px !important;
     min-height: fit-content !important;
+    width: 100%;
+    padding: 10px 12px;
 }
 
 form {
@@ -39,7 +42,7 @@ label {
     appearance: none;
 }
 .titulosPantallasSinLayout {
-    margin-top: 85px !important;
+    margin-top: 45px !important;
 }
 
 h1 {
@@ -52,7 +55,7 @@ h1 {
 }
 
 .botonPrincipal {
-    height: 45px;
+    height: 55px;
     width: 100%;
     background-color: #226166;
     color: white;
@@ -151,7 +154,7 @@ h1 {
 }
 
 ul {
-    margin-bottom: 2px !important;
+    margin-bottom: 4px !important;
 }
 
 .botonAgregar {
@@ -179,3 +182,10 @@ h2 {
     font-size: 28px !important;
     font-family: system-ui !important;
 }
+#botonSubmit {
+    left: 250px;
+    width: 50%;
+}
+
+
+

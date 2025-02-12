@@ -122,6 +122,7 @@ public class ColaboracionController {
                         ctx.redirect("/colaboracion/heladera");
                     }else {
                         ctx.redirect("/colaboracion");
+                        //mensaje de error
                     }
 
                     break;

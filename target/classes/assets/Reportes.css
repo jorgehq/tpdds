@@ -1,13 +1,5 @@
-#botonDonarHeladera {
-    justify-content: center;
-    margin-top: 25px;
-}
-
-#botonDonarHeladera input {
-    width: 276px;
-}
 form {
-    height: 100px;
+    height: 300px;
     width: 700px;
     margin: 0 auto; /* Centrar el formulario */
 
@@ -27,3 +19,4 @@ form {
     border-radius: 4px;
     box-sizing: border-box;
 }
+

@@ -23,7 +23,7 @@ public class HeladeraController {
             String dato = ctx.queryParam("dato");
             if (filtro == null) {
 
-                TemplateRender.render(ctx, "/heladeras.html.hbs", model);
+                TemplateRender.render(ctx, "heladeras.html.hbs", model);
                 return;
             }
             try {

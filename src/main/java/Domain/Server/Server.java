@@ -34,7 +34,7 @@ public class Server {
     app.post("/registro/persona", registroController::crearUsuarioPersonaHumana);
 
     app.get("/registro/negocio", registroController::pantallaPersonaJuridica);
-    app.post("/registro/negocio", registroController::crearUsuarioPersonaJuridica);
+    app.post("/registro/negocios", registroController::crearUsuarioPersonaJuridica);
 
     app.get("/colaboracion", colaboracionController::principal); // Generalizado
     app.post("/colaboracion/eleccion", colaboracionController::eleccionColaboracion);
@@ -56,32 +56,32 @@ public class Server {
 
     app.get("/heladeras", heladeraController::pantallaPrincipal);
     app.post("/heladeras", heladeraController::suscribirseOreportar);
+    ///heladeras/{id_heladera}
 
     app.get("/falla", fallaTecnicaControler::pantalla_reportar_falla);
     app.post("/falla", fallaTecnicaControler::reportar_falla);
 
     app.get("/reporte", reporteController::pantallaPrincipal);
     app.post("/reporte/descargar", reporteController::descargarReporte);
+//cambiar a get
 
     app.get("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
     app.post("/colaboracion/archivo", cargaColaboracionController::cargar_archivo);
+//colaboracioones/csv
 
     app.get("/notificaciones", notificacionController::pantallaNotificaciones);
     app.post("/notificaciones", notificacionController::aceptarNotificacion);
 
     app.get("/cuenta", cuentaController::pantalla_cuenta_principal);
     app.post("/cuenta", cuentaController::modificarCuenta);
-    app.post("/Cerrar", cuentaController::cerrarCuenta);
+    app.get("/Cerrar", cuentaController::cerrarCuenta);
     app.post("/Colaborar", cuentaController::AceptarTodasColaboraciones);
 
 
    // int port = Integer.parseInt(System.getenv("PORT"));
     app.start(7000);
 
-    iniciarBD();
 
-   new CronVerificarSolicitudes().verificandoYmandarMensaje();
-   new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
   }
 
 

@@ -1,15 +1,24 @@
 
+form {
+    height: 300px;
+    width: 1000px;
+    margin: 0 auto; /* Centrar el formulario */
 
+}
+
+/* Contenedor de cada campo del formulario */
 .form-floating {
-    margin: 10px;
+    position: relative;
+    margin-bottom: 2rem; /* Espacio entre los campos */
 }
 
-#botonCrearCuenta {
-    justify-content: center;
-    margin-top: 25px;
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-#botonCrearCuenta input {
-    width: 276px;
-}
 
