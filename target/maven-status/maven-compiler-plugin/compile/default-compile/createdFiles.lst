@@ -14,6 +14,7 @@ Domain\Repositorios\RepoSolicitudesTarjetas.class
 Domain\Exception\SinUsosDisponiblesException.class
 Domain\Notificaciones\NotificacionIncidente.class
 Domain\Colaborador\FormaColaboracion.class
+Domain\Server\Controlador\ReporteController$1.class
 Domain\Server\Controlador\CuentaController.class
 Domain\Converters\FormaColaboracionConverter.class
 Domain\Persona\Visita.class
@@ -23,6 +24,7 @@ Domain\CronTasks\CronVerificarSolicitudes.class
 Domain\Repositorios\RepoNotificaciones.class
 Domain\Colaborador\Rubro.class
 Domain\Solicitudes\SolicitudColaboracion.class
+Domain\Server\Enums\Tipocolaboracion.class
 Domain\Colaborador\Transferencia\Transferencia.class
 Domain\Colaborador\MedioDeContacto\ControladorMensajeria.class
 Domain\Repositorios\RepoSolicitudColaboracion.class
@@ -54,6 +56,7 @@ Domain\Validador\ValidadorDeContrasenias.class
 Domain\Colaborador\MedioDeContacto\Telegram.class
 Domain\Converters\TipoDocumentoConverter.class
 Domain\Colaborador\MedioDeContacto\Mediodecontacto.class
+Domain\Server\Enums\Filtros.class
 Domain\Colaborador\TipoDeColaboracion\TipoDeColaboracion.class
 Domain\Validador\Validacion.class
 Domain\Server\Server.class
@@ -66,6 +69,7 @@ APIs\MockPsensor.class
 Domain\Heladera\NivelDeLlenado.class
 Domain\Server\Controlador\NotificacionController.class
 Domain\Repositorios\RepoPuntajes.class
+Domain\Server\Enums\Tiposreporte.class
 Domain\Repositorios\RepoTarjetas.class
 Domain\Tarjeta\TarjetaColaborador.class
 Domain\Colaborador\MedioDeContacto\InstantMessageSender.class
@@ -80,6 +84,7 @@ Domain\Persona\Tecnico.class
 Domain\Tarjeta\Tarjeta.class
 Domain\Notificaciones\NotificacionFaltanViandas.class
 Domain\Server\DatabaseConfig.class
+Domain\Server\Controlador\HeladeraController$1.class
 Domain\Importador\ImportadorColaboracionCsv$1.class
 Domain\Heladera\Heladera.class
 Domain\Colaborador\MedioDeContacto\Email.class
@@ -87,6 +92,7 @@ Domain\Server\Controlador\RegistroControlador.class
 Domain\Colaborador\TipoDeColaboracion\DistribuirVianda.class
 Domain\Persona\Operador.class
 Domain\Notificaciones\Notificacion.class
+Domain\Exception\Errorpopups.class
 Domain\Heladera\Vianda.class
 Domain\Repositorios\RepoMovimientoTarjeta.class
 Domain\Server\Controlador\FallaTecnicaControler.class
@@ -101,6 +107,7 @@ Domain\Repositorios\RepoAlertas.class
 Domain\Repositorios\RepoColaboradores.class
 Domain\Exception\ErrorConeccionSensorDePeso.class
 Domain\Exception\SolicitudTarjetaInvalida.class
+Domain\Server\Controlador\ColaboracionController$1.class
 APIs\TSensor\Action.class
 Domain\Colaborador\RegistroPuntaje\RegistroPuntaje.class
 Domain\Colaborador\TipoDeColaboracion\FabricaColaboraciones.class

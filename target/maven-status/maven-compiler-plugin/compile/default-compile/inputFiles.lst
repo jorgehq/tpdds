@@ -15,6 +15,7 @@ E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Col
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Repositorios\RepoAlertas.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Repositorios\RepoHeladera.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Persona\Tecnico.java
+E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Enums\Tiposreporte.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Solicitudes\Controlador\ControladorDeAcceso.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Server.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Validador\ValidarCaracteres.java
@@ -37,6 +38,7 @@ E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Ser
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Ubicacion\Provincia.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Controlador\FallaTecnicaControler.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Validador\NoHayRepeticionDeCaracteres.java
+E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Enums\Filtros.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Colaborador\FormaColaboracion.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Tarjeta\MovimientoTarjeta.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Validador\ValidadorDeContrasenias.java
@@ -81,6 +83,7 @@ E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Sol
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\APIs\WSensor\WSensor.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Colaborador\TipoDeColaboracion\DonarDinero.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\CronTasks\CronVerificarSolicitudes.java
+E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Exception\Errorpopups.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Usuarios\Usuario.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Heladera\Sensores\AdapterSensorPeso.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Exception\SinUsosDisponiblesException.java
@@ -99,6 +102,7 @@ E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Col
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Controlador\RegistroControlador.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Colaborador\MedioDeContacto\InstantMessageApp.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Controlador\HeladeraController.java
+E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Server\Enums\Tipocolaboracion.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\APIs\TSensor\Action.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Tarjeta\TarjetaColaborador.java
 E:\Materias\Diseño de sistemas\2024-tpa-vi-no-grupo-10\src\main\java\Domain\Repositorios\RepoColaboraciones.java
