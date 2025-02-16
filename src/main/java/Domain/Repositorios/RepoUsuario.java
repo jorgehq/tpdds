@@ -36,7 +36,10 @@ public class RepoUsuario {
         TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.asignado.id = :id", Usuario.class);
         query.setParameter("id", id);
         List<Usuario> usuarios = query.getResultList();
-        return usuarios.get(0);
+        Usuario o=usuarios.get(0);
+        em.refresh(o);
+        em.refresh(o.getAsignado());
+        return o;
     }
 
     public List<Usuario> buscarPorNombre(String nombre) {

@@ -11,13 +11,13 @@
     </head>
 
     <body>
-    <form action="/Colaborar" method="POST">
-        <div class="row" id="botonCcolaborarCuenta">
+    <form action="/cuenta/colaborar" method="POST">
+        <div class="row" id="botonColaborarCuenta">
             <input class="botonPrincipal" type="submit" value="Colaborar">
         </div>
     </form>
     <h1>Mi Cuenta</h1>
-    <form action="/cuenta" method="POST">
+    <form action="/cuentas" method="POST">
         <div class="row">
             <div class="col">
                 <div class="form-floating">
@@ -27,12 +27,12 @@
                 </div>
                 <div class="form-floating" style="display: flex">
                     <input type="text" class="form-control" id="contrasenia" name="contrasenia"
-                           placeholder={{contrasenia}} required value={{contrasenia}}>>
+                           placeholder={{contrasenia}} required value={{contrasenia}}>
                     <label for="contrasenia">Contraseña*</label>
                 </div>
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="repetirContrasenia" name="repetirContrasenia"
-                           placeholder="Repita la contraseña" required>
+                    <input type="text" class="form-control" id="repetirContrasenia" name="contrasenia"
+                           placeholder={{contrasenia}} required value={{contrasenia}}>
                     <label for="repetirContrasenia">Repita la contraseña</label>
                 </div>
                 <div class="form-floating">

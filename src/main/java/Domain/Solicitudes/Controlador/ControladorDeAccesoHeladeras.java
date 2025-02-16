@@ -7,6 +7,7 @@ import Domain.Tarjeta.TarjetaColaborador;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Set;
 
 public class ControladorDeAccesoHeladeras implements ControladorDeAcceso{
 
@@ -16,7 +17,7 @@ public class ControladorDeAccesoHeladeras implements ControladorDeAcceso{
   public void notificarTarjetaColaboradoraHabilitada(String numeroDeTarjeta) {
 
 
-    List<SolicitudColaboracion> misSolicitudes=RepoSolicitudColaboracion.getInstance().obtenerTodos();
+    Set<SolicitudColaboracion> misSolicitudes=RepoSolicitudColaboracion.getInstance().obtenerTodos();
     if(misSolicitudes==null){
     }else{
       misSolicitudes.stream().

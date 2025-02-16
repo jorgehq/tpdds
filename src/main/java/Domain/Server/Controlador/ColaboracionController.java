@@ -4,10 +4,13 @@ import Domain.Colaborador.Colaborador;
 import Domain.Colaborador.PersonaJuridica;
 import Domain.Colaborador.TipoDeColaboracion.*;
 import Domain.Colaborador.Transferencia.FrecuenciaDeDonacion;
+import Domain.Exception.Errorpopups;
 import Domain.Heladera.Heladera;
 import Domain.Heladera.Vianda;
 import Domain.Persona.PersonaVulnerable;
 import Domain.Repositorios.*;
+import Domain.Server.Enums.Filtros;
+import Domain.Server.Enums.Tipocolaboracion;
 import Domain.Server.TemplateRender;
 import Domain.Solicitudes.SolicitudColaboracion;
 import Domain.Tarjeta.Tarjeta;
@@ -22,39 +25,41 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
+import static Domain.Server.Enums.Filtros.TODAS;
+import static Domain.Server.Enums.Tipocolaboracion.DINERO;
+
 public class ColaboracionController {
     public void principal(Context ctx) {
         String usuarioID = ctx.sessionAttribute("usuarioID");
-        Map<String, Object> model = new HashMap<>();
-        model.put("esAdmin", ctx.sessionAttribute("esAdmin"));
+        Map<String, Object> model = ctx.attribute("sharedData");
         String dato = ctx.queryParam("dato");
         Set<Heladera> filtradas;
         if (usuarioID == null) {
             ctx.redirect("/");
         } else {
-            String filtro = ctx.queryParam("filtro");
 
-            if (filtro == null) {
+            if (ctx.queryParam("filtro") == null) {
+                filtradas = RepoHeladera.getInstance().obtenerTodos();
+                model.put("heladeras", filtradas);
 
                 TemplateRender.render(ctx, "/colaboraciones.html.hbs", model);
             } else {
-                int filtroInt = Integer.parseInt(filtro);
-                System.out.println("==========================filtro "+filtroInt);
+
                 try {
-                    switch (filtroInt) {
-                        case 0:
+                    switch (Filtros.valueOf(ctx.queryParam("filtro"))) {
+                        case TODAS:
                             filtradas = RepoHeladera.getInstance().obtenerTodos();
                             model.put("heladeras", filtradas);
                             break;
-                        case 1:
+                        case NOMBRE:
                             filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato);
                             model.put("heladeras", filtradas);
                             break;
-                        case 2:
+                        case LOCALIDAD:
                             filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato);
                             model.put("heladeras", filtradas);
                             break;
-                        case 3:
+                        case DIRECCION:
                             filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato);
                             model.put("heladeras", filtradas);
                             break;
@@ -81,11 +86,11 @@ public class ColaboracionController {
         if(eleccion==null){
             TemplateRender.render(ctx, "/colaboraciones.html.hbs", Map.of());
         }else{
-            switch(Integer.valueOf(eleccion)){
-                case 0: //Donacion de dinero
+            switch(Tipocolaboracion.valueOf(eleccion)){
+                case DINERO: //Donacion de dinero
                     ctx.redirect("/colaboracion/dinero");
                     break;
-                case 1: //DonarVianda
+                case VIANDA: //DonarVianda
                     List<String> heladeraIds = ctx.formParams("heladeraId"); // Obtener lista de IDs de heladeras
                     if(heladeraIds.size()==0){
                         ctx.redirect("/colaboracion");
@@ -101,7 +106,7 @@ public class ColaboracionController {
                         }
                     }
                     break;
-                case 2: //Distribuir Vianda
+                case DISTRIBUCION: //Distribuir Vianda
                    
                     List<String> heladeraIds2 = ctx.formParams("heladeraId"); 
 
@@ -116,7 +121,7 @@ public class ColaboracionController {
 
                     }
                     break;
-                case 3 : //Donar Heladera
+                case HELADERA : //Donar Heladera
                     Colaborador colaborador= RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
                     if(colaborador instanceof  PersonaJuridica){
                         ctx.redirect("/colaboracion/heladera");
@@ -132,7 +137,7 @@ public class ColaboracionController {
 
     }
     public void pantalla_donar_dinero(Context ctx){
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = ctx.attribute("sharedData");
         model.put("frecuencias",FrecuenciaDeDonacion.values());
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
         TemplateRender.render(ctx, "/donarDinero.html.hbs", model);
@@ -166,13 +171,19 @@ public class ColaboracionController {
     public void pantalla_donar_vianda(Context ctx){
         String h = ctx.queryParam("heladeraID");
 
-        Map<String,Object> model=new HashMap<>();
+        Map<String,Object> model=ctx.attribute("sharedData");
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
         Heladera heladera1 = RepoHeladera.getInstance().buscarPorId(Long.parseLong(h));
 
+        String error = ctx.sessionAttribute("error");
+        if (error != null) {
+            model.put("error", error);
+            ctx.sessionAttribute("error", null); // Eliminar el error después de mostrarlo
+        }
         model.put("heladera", heladera1);
         model.put("idHeladera1", heladera1.getId());
         model.put("direccionHeladera1", heladera1.getDireccion().getDireccion());
+
 
         TemplateRender.render(ctx, "/donarVianda.html.hbs", model);
     }
@@ -187,11 +198,12 @@ public class ColaboracionController {
         Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
         Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraid));
 
-        if(heladera.getEstado().getHeladeraAveriada()){
-            ctx.redirect("/colaboracion");
-            System.out.println("====================La heladera esta averiada=========================");
+        if (heladera.getEstadoHeladera().getHeladeraAveriada()) {
+            Errorpopups.erroresyredireccion(ctx,"⚠️ La heladera está averiada. No se puede distribuir en este momento."
+                    ,"/colaboracion/vianda?heladeraID=" + heladera.getId());
             return;
         }
+
         TipoDeColaboracion t=new DonarVianda();
 
         Map<String,String> datos=new HashMap<>();
@@ -219,11 +231,17 @@ public class ColaboracionController {
         String h = ctx.queryParam("heladeraId");
         String h2 = ctx.queryParam("heladeraId2");
 
-        Map<String,Object> model=new HashMap<>();
+        Map<String,Object> model=ctx.attribute("sharedData");
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
         Heladera heladera1 = RepoHeladera.getInstance().buscarPorId(Long.parseLong(h)); // Consultar el repositorio
         Heladera heladera2 = RepoHeladera.getInstance().buscarPorId(Long.parseLong(h2));
 
+
+        String error = ctx.sessionAttribute("error");
+        if (error != null) {
+            model.put("error", error);
+            ctx.sessionAttribute("error", null); // Eliminar el error después de mostrarlo
+        }
         model.put("heladera1", heladera1);
         model.put("heladera2", heladera2);
 
@@ -245,7 +263,13 @@ public class ColaboracionController {
 
         Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
         Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraid));
+        Heladera heladera2= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraid2));
 
+        if (heladera2.getEstadoHeladera().getHeladeraAveriada()) {
+            Errorpopups.erroresyredireccion(ctx,"⚠️ La heladera está averiada. No se puede distribuir en este momento."
+                    ,"/colaboracion/distribucion?heladeraID=" + heladera.getId());
+            return;
+        }
         if(heladera.getEstado().getHeladeraAveriada() && heladera.getViandasEnHeladera().size()!=0){
             TipoDeColaboracion t=new DistribuirVianda();
 
@@ -271,7 +295,7 @@ public class ColaboracionController {
     }
     public void pantalla_donar_heladera(Context ctx){
 
-        Map<String,Object> model=new HashMap<>();
+        Map<String,Object> model=ctx.attribute("sharedData");
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
         model.put("provincias", Provincia.values());
         model.put("localidades", Localidad.values());
@@ -315,7 +339,7 @@ public class ColaboracionController {
     }
 
     public void pantalla_persona_vulnerable(Context ctx){
-        Map<String,Object> model=new HashMap<>();
+        Map<String,Object> model=ctx.attribute("sharedData");
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
         model.put("provincias", Provincia.values());
         model.put("localidades", Localidad.values());
@@ -343,6 +367,7 @@ public class ColaboracionController {
 
         p.asignarTarjeta(tj);
         tj.setEsnUso(true);
+        tj.setFechaRegistro(LocalDate.now());
 
         RepositorioPersonasVulnerables.getInstance().guardar(p);
 

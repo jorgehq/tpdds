@@ -28,14 +28,14 @@ public class Tarjeta {
   public Tarjeta() {
   }
 
-  public Tarjeta(String codigo, LocalDate fechaRegistro) {
+  public Tarjeta(String codigo) {
     if (codigo.length() == 11) {
       this.codigo = codigo;
     }
     else {
       throw new CodigoInvalidoException("El codigo debe tener 11 caracteres");
     }
-    this.fechaRegistro = fechaRegistro;
+    this.fechaRegistro = null;
 
   }
 
@@ -54,7 +54,15 @@ public class Tarjeta {
 
   }
 
-  private Integer todayUses() {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public void setEnUso(Boolean enUso) {
+        this.enUso = enUso;
+    }
+
+    private Integer todayUses() {
     return this.movimientos.stream()
         .filter(movimiento -> movimiento.fecha.equals(LocalDate.now()))
         .toList().size();

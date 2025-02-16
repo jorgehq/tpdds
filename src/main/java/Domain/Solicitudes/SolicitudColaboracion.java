@@ -40,7 +40,7 @@ public class SolicitudColaboracion {
   @JoinColumn(name = "heladera_id")
   public Heladera heladera;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "tarjeta_id")
   public TarjetaColaborador tarjeta;
 
@@ -132,10 +132,14 @@ public class SolicitudColaboracion {
   public void instanciarColaboracion(){
     System.out.println("================================Comensando Fabrica");
     TipoDeColaboracion nueva;
+    System.out.println("ID solicitud: "+id);
+    System.out.println("DAtos donar vianda "+datosTemporales.get("fechaCaducidad")+ "  "+datosTemporales.get("calorias")+"  "+datosTemporales.get("peso"));
+    System.out.println("DAtos donar vianda "+datosTemporales.get("origen")+ "  "+datosTemporales.get("destino"));
+
     if(colaboracion instanceof DonarVianda){
       nueva=FabricaColaboraciones.completarColaboracion("donarvianda",datosTemporales);
       nueva.setId(colaboracion.getId());
-
+      descripcion="Donacion de vianda";
       ((DonarVianda) nueva).getVianda().setHeladera(heladera);
 
 

@@ -40,8 +40,9 @@ public class ImportadorColaboracionCsv {
 
   public void importar(InputStream inputStream) {
     try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-      String linea;
-      while ((linea = br.readLine()) != null) {
+      String linea="DNI;12345678;Juan;Pérez;edmundo@example.com;25/11/2024;DINERO;2000;25/11/1998;BUENOS_AIRES;LA_MATANZA;Abasto;1234;1234";
+
+
         String[] datoslinea = linea.split(";");
         String tipoDoc = datoslinea[0].trim();
         String documento = datoslinea[1].trim();
@@ -95,11 +96,11 @@ public class ImportadorColaboracionCsv {
         for (TipoDeColaboracion t : colaboracion) {
           RepoColaboraciones.getInstance().guardar(t);
           usuario.getAsignado().getColaboraciones().add(t);
-          RepoColaboradores.getInstance().guardar(usuario.getAsignado());
+          RepoColaboradores.getInstance().merge(usuario.getAsignado());
         }
 
 
-        }
+
       } catch(IOException e){
         throw new RuntimeException("Error al leer el archivo CSV: " + e.getMessage(), e);
       }

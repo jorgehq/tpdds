@@ -21,8 +21,9 @@
 }
 
 #botonColaborarCuenta input {
-    width: 200px;
+    width: 20%;
 }
+
 form {
     height: 100px;
     width: 1000px;

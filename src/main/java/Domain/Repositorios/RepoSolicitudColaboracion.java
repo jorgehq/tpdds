@@ -7,7 +7,9 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RepoSolicitudColaboracion {
     private EntityManagerFactory emf;
@@ -37,12 +39,12 @@ public class RepoSolicitudColaboracion {
     }
 
 
-    public List<SolicitudColaboracion> obtenerTodos() {
-
-        TypedQuery<SolicitudColaboracion> query = em.createQuery("SELECT u FROM SolicitudColaboracion u", SolicitudColaboracion.class);
-        List<SolicitudColaboracion> colaboradores = query.getResultList();
-        return colaboradores;
+    public Set<SolicitudColaboracion> obtenerTodos() {
+        String jpql = "SELECT DISTINCT s FROM SolicitudColaboracion s LEFT JOIN FETCH s.colaboracion";
+        List<SolicitudColaboracion> colaboradores = em.createQuery(jpql, SolicitudColaboracion.class).getResultList();
+        return new HashSet<>(colaboradores); // Convertir List a Set
     }
+
 
     public void guardar(SolicitudColaboracion c) {
         em.getTransaction().begin();

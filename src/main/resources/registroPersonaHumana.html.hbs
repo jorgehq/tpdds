@@ -13,7 +13,7 @@
 <body>
 
 <h1 class="titulosPantallasSinLayout">Crea tu cuenta</h1>
-<form action="/registro/persona" method="POST">
+<form action="/registro/personas" method="POST">
  <div class="row">
            <div class="col">
                <div class="form-floating">
@@ -48,9 +48,9 @@
                    <label for="celular">Celular</label>
                </div>
                 <div class="form-floating">
-                    <label for="provincia"> Seleccione Provincia</label>
+
                     <select name="provincia" id="provincia" required>
-                        <option value=""></option>
+                        <option value=""disabled selected>Seleccione Provincia</option>
                         {{#each provincias}}
                         <option value="{{this}}">{{this}}</option>
                         {{/each}}
@@ -62,13 +62,13 @@
                 </div>
 
                 <div class="form-floating">
-                    <label for="localidad">Seleccione su localidad</label>
                     <select name="localidad" id="localidad" required>
-                        <option value=""></option>
+                        <option value=""disabled selected>Seleccione su localidad</option>
                         {{#each localidades}}
                         <option value="{{this}}">{{this}}</option>
                         {{/each}}
                     </select>
+
                 </div>
 
                <div class="form-floating">
@@ -80,13 +80,13 @@
                    <label for="DNI">DNI</label>
                </div>
                 <div class="form-floating">
-                    <label for="tipoDocumento">Seleccione su tipo documento</label>
                     <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
-                        <option value=""></option>
+                        <option value="" disabled selected>Seleccione tipo documento</option>
                         <option value="DNI">DNI</option>
-                        <option value="Pasaporte">Pasaporte</option>
-                        <option value="Cédula">Cédula</option>
+                        <option value="LC">Pasaporte</option>
+                        <option value="LE">Cédula</option>
                     </select>
+
                 </div>
            </div>
 

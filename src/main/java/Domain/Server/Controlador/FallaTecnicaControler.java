@@ -1,6 +1,7 @@
 package Domain.Server.Controlador;
 
 import Domain.Colaborador.Colaborador;
+import Domain.Exception.Errorpopups;
 import Domain.Heladera.Heladera;
 import Domain.Incidentes.FallaTecnica;
 import Domain.Notificaciones.NotificacionIncidente;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class FallaTecnicaControler {
     public void pantalla_reportar_falla(Context ctx){
         List<String> heladeraIds = ctx.queryParams("heladeraID");
-        Map<String,Object> model=new HashMap<>();
+        Map<String,Object> model=ctx.attribute("sharedData");
 
         Heladera h= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraIds.get(0)));
 
@@ -36,7 +37,9 @@ public class FallaTecnicaControler {
 
 
         Heladera h= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeraId));
+
         if(h.getEstado().getHeladeraAveriada()){
+
             ctx.redirect("/heladeras");
         }else{
             h.getEstado().marcarComoInactiva();
@@ -53,6 +56,7 @@ public class FallaTecnicaControler {
 
                 h.notificarInteresados(new NotificacionIncidente(h,s,falla.getDescripcion()));
 
+                h.getEstadoHeladera().marcarComoInactiva();
                 RepoHeladera.getInstance().guardar(h);
             }
 

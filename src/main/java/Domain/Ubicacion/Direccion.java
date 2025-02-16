@@ -9,7 +9,7 @@ public class Direccion {
   @Enumerated(EnumType.STRING)
   Localidad localidad;
   @Column
-  String direccion;
+  public String direccion;
 
   public Direccion(Provincia provincia, Localidad localidad, String direccion) {
     this.provincia = provincia;

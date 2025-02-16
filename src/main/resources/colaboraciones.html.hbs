@@ -17,12 +17,13 @@
           <div class="col">
               <div class="form-floating">
                   <select class="form-control" id="filtro" name="filtro" required>
-                      <option value="0">Todas</option>
-                      <option value="1">Nombre</option>
-                      <option value="2">Localidad</option>
-                      <option value="3">Direccion</option>
+                      <option value=""disabled selected>Seleccione filtro</option>
+                      <option value="TODAS">Todas</option>
+                      <option value="NOMBRE">Nombre</option>
+                      <option value="LOCALIDAD">Localidad</option>
+                      <option value="DIRECCION">Direccion</option>
                   </select>
-                  <label for="Filtro">Filtros</label>
+                  <label for="Filtro">Filtro</label>
               </div>
           </div>
           <div class="col">
@@ -45,11 +46,15 @@
               <p>Lista de heladeras</p>
               <ul>
                   {{#each heladeras}}
-                      <li>
-                          <input type="checkbox" name="heladeraId" value="{{id}}" id="heladera{{id}}">
-                          <label for="heladera{{id}}">Nombre: {{nombre}}
-                           Ubicación: {{this.direccion.provincia}} {{this.direccion.localidad}} {{this.direccion.direccion}}</label>
-                      </li>
+                  <li>
+                      <input type="checkbox" name="heladeraId" value="{{id}}" id="heladera{{id}}"
+                             {{#if this.estadoHeladera.heladeraAveriada}}disabled {{/if}}>
+                      <label for="heladera{{id}}">
+                          Nombre: {{nombre}}
+                          Ubicación: {{this.direccion.provincia}} {{this.direccion.localidad}} {{this.direccion.direccion}}
+                          {{#if this.estadoHeladera.heladeraAveriada}}Estado: <span style="color: red;"> (Averiada) </span>{{/if}}
+                      </label>
+                  </li>
                   {{#unless @last}}
                   <div class="lineaDivisoria"></div>
                   {{/unless}}
@@ -61,10 +66,11 @@
           <div class="form-floating">
 
                          <select class="form-control" name="eleccion" id="eleccion" required>
-                             <option value="0">Donar Dinero</option>
-                             <option value="1">Donar Vianda</option>
-                             <option value="2">Distribuir Viandas</option>
-                             <option value="3">Donar Heladera</option>
+                             <option value=""disabled selected>Seleccione colaboracion</option>
+                             <option value="DINERO">Donar Dinero</option>
+                             <option value="VIANDA">Donar Vianda</option>
+                             <option value="DISTRIBUCION">Distribuir Viandas</option>
+                             <option value="HELADERA">Donar Heladera</option>
                          </select>
                         <label for="Filtro">Eleccion</label>
                      </div>

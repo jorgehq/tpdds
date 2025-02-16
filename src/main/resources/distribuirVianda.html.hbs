@@ -10,8 +10,18 @@
                 crossorigin="anonymous">
       </head>
       <body >
-<h1 class="titulosPantallasSinLayout">Distribuir viandas</h1>
-      <form action="/colaboracion/distribucion" method="POST">
+      <h1 class="titulosPantallasSinLayout">Distribuir viandas</h1>
+
+      {{#if error}}
+      <div class="popup">
+          <div class="popup-content">
+              <span class="close-popup" onclick="window.location.href='/notificaciones';">&times;</span>
+              <p>{{error}}</p>
+          </div>
+      </div>
+      {{/if}}
+
+      <form action="/colaboracion/distribuciones" method="POST">
 
             <div>
               <p><strong>Heladera:</strong> {{heladera1.nombre}}</p>

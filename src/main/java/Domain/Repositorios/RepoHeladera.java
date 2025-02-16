@@ -1,6 +1,8 @@
 package Domain.Repositorios;
 
 import Domain.Heladera.Heladera;
+import Domain.Heladera.Vianda;
+import Domain.Solicitudes.SolicitudColaboracion;
 import Domain.Tarjeta.Tarjeta;
 import Domain.Ubicacion.Localidad;
 import jakarta.persistence.EntityManager;
@@ -34,6 +36,7 @@ public class RepoHeladera {
   public Heladera buscarPorId(Long id) {
 
     Heladera heladera = em.find(Heladera.class, id);
+    em.refresh(heladera);
     return heladera;
   }
 
@@ -46,7 +49,6 @@ public class RepoHeladera {
     List<Heladera> listaHeladeras = query.getResultList();
     Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
 
-    heladeras.forEach(h -> h.getEstado().iniciarSensores());
     return heladeras;
   }
   public Set<Heladera> filtrarPorNombre(String nombre) {
@@ -78,6 +80,30 @@ public class RepoHeladera {
     heladeras.forEach(h -> h.getEstado().iniciarSensores());
     return heladeras;
   }
+
+  public List<SolicitudColaboracion> obtenerSolicitudesPorHeladeraId(Long heladeraId) {
+    String jpql = "SELECT s FROM SolicitudColaboracion s WHERE s.heladera.id = :heladeraId";
+    List<SolicitudColaboracion> solicitudes = em.createQuery(jpql, SolicitudColaboracion.class)
+            .setParameter("heladeraId", heladeraId)
+            .getResultList();
+
+    // Refrescar cada entidad para asegurarnos de que esté actualizada
+    for (SolicitudColaboracion solicitud : solicitudes) {
+      em.refresh(solicitud);
+    }
+
+    return solicitudes;
+  }
+  public int obtenerViandasPorHeladeraId(Long heladeraId) {
+    String jpql = "SELECT v FROM Vianda v WHERE v.heladera.id = :heladeraId";
+    List<Vianda> viandas = em.createQuery(jpql, Vianda.class)
+            .setParameter("heladeraId", heladeraId)
+            .getResultList();
+
+    return viandas.size();
+  }
+
+
   public void guardar(Heladera heladera) {
     em.getTransaction().begin();
     em.persist(heladera);

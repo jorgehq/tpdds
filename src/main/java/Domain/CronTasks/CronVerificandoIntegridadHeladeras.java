@@ -1,8 +1,13 @@
 package Domain.CronTasks;
 
 import Domain.Heladera.Heladera;
+import Domain.Incidentes.FallaTecnica;
+import Domain.Notificaciones.Notificacion;
 import Domain.Notificaciones.NotificacionFaltanViandas;
+import Domain.Notificaciones.NotificacionIncidente;
+import Domain.Repositorios.RepoFallaTecnica;
 import Domain.Repositorios.RepoHeladera;
+import Domain.Repositorios.RepoNotificaciones;
 import Domain.Repositorios.RepoSolicitudColaboracion;
 import Domain.Solicitudes.SolicitudColaboracion;
 
@@ -32,26 +37,67 @@ public class CronVerificandoIntegridadHeladeras {
     }, 30, TimeUnit.SECONDS);
   }
 
-  public void verificarHeladeras(){
+  public void verificarHeladeras() {
     this.mostrar();
+
+    // Obtener todas las heladeras en buen estado
     Set<Heladera> lista = RepoHeladera.getInstance()
             .obtenerTodos()
             .stream()
-            .filter(h -> !h.getEstado().getHeladeraAveriada())
             .collect(Collectors.toSet());
-    System.out.println("=======================================================");
-
-    System.out.println("Hay  "+lista.size()+" heladeras en buen estado en la lista total");
 
     System.out.println("=======================================================");
-    for(Heladera s:lista){
-      if(s.getViandasEnHeladera().size()<20){
+    System.out.println("Hay " + lista.size() + " heladeras en buen estado en la lista total");
+    System.out.println("=======================================================");
+
+    // Obtener todas las notificaciones existentes
+    List<Notificacion> notificaciones = RepoNotificaciones.getInstance().obtenerTodos();
+
+    for (Heladera heladera : lista) {
+
+      if (heladera.getEstadoHeladera().getHeladeraAveriada()) {
         System.out.println("=======================================================");
-        System.out.println("SE detecto falta de viandas en la heladera "+s.getNombre()+" Mandando notificaciones faltantes");
+        System.out.println("SE detectó incidente en la heladera " + heladera.getNombre() + ". Verificando notificación.");
         System.out.println("=======================================================");
 
-        s.notificarInteresados(new NotificacionFaltanViandas(s.getCapacidadDeViandas()-s.getViandasEnHeladera().size(),s));
+        // Buscar la notificación de incidente para esta heladera
+        Notificacion notificacionExistente = null;
+        for (Notificacion notificacion : notificaciones) {
+          if (notificacion.getHeladera().equals(heladera) && notificacion instanceof NotificacionIncidente) {
+            notificacionExistente = notificacion;
+            break; // Salir del bucle al encontrar la notificación
+          }
+        }
 
+        if (notificacionExistente != null) {
+          // Notificar a los interesados si la notificación existe
+          heladera.notificarInteresados(notificacionExistente);
+        } else {
+          System.out.println("No se encontró una notificación de incidente para la heladera " + heladera.getNombre());
+        }
+      } else if (heladera.getViandasEnHeladera().size() < 20) {
+        System.out.println("=======================================================");
+        System.out.println("SE detectó falta de viandas en la heladera " + heladera.getNombre() + ". Mandando notificaciones faltantes.");
+        System.out.println("=======================================================");
+
+        // Verificar si ya existe una notificación de falta de viandas para esta heladera
+        boolean notificacionExistente = false;
+        for (Notificacion notificacion : notificaciones) {
+          if (notificacion.getHeladera().equals(heladera) && notificacion instanceof NotificacionFaltanViandas) {
+            notificacionExistente = true;
+            break; // Salir del bucle al encontrar la notificación
+          }
+        }
+
+        if (!notificacionExistente) {
+          // Crear y guardar una nueva notificación de falta de viandas
+          NotificacionFaltanViandas notificacion = new NotificacionFaltanViandas(
+                  heladera.getCapacidadDeViandas() - heladera.getViandasEnHeladera().size(),
+                  heladera
+          );
+          RepoNotificaciones.getInstance().guardar(notificacion);
+          heladera.notificarInteresados(notificacion);
+        }
       }
     }
   }

@@ -16,12 +16,13 @@
               <div class="col">
           <div class="form-floating">
               <select class="form-control" id="filtro" name="filtro" required>
-                  <option value="0">Todas</option>
-                  <option value="1">Nombre</option>
-                  <option value="2">Localidad</option>
-                  <option value="3">Direccion</option>
+                  <option value=""disabled selected>Seleccione filtro</option>
+                  <option value="TODAS">Todas</option>
+                  <option value="NOMBRE">Nombre</option>
+                  <option value="LOCALIDAD">Localidad</option>
+                  <option value="DIRECCION">Direccion</option>
               </select>
-              <label for="Filtro">Filtros</label>
+
           </div>
           </div>
           <div class="col">
@@ -45,12 +46,27 @@
               <ul>
                   {{#each heladeras}}
                       <li>
-                          <input type="checkbox" name="heladeraId" value="{{id}}" id="heladera{{id}}">
-                          <label for="heladera{{id}}">Nombre: {{nombre}} | Ubicación: {{this.direccion.provincia}} {{this.direccion.localidad}} {{this.direccion.direccion}}</label>
+                          <div class="contenedor-heladera">
+                              <div class="info-contenido">
+                                  <input type="checkbox" name="heladeraId" value="{{id}}" id="heladera{{id}}">
+
+                                  <label for="heladera{{id}}">
+                                      Nombre: {{nombre}}
+                                      Ubicación: {{this.direccion.provincia}} {{this.direccion.localidad}} {{this.direccion.direccion}}
+                                      {{#if this.estadoHeladera.heladeraAveriada}}Estado: <span style="color: red;"> (Averiada) </span>{{/if}}
+                                  </label>
+                              </div>
+                              <div id="BotonReportar" class="boton-reportar">
+                                  <a href="/falla?heladeraID={{id}}" class="botonPrincipal">
+                                      Reporte
+                                  </a>
+                              </div>
+                          </div>
+                          {{#unless @last}}
+                          <div class="lineaDivisoria"></div>
+                          {{/unless}}
                       </li>
-                  {{#unless @last}}
-                  <div class="lineaDivisoria"></div>
-                  {{/unless}}
+
                   {{/each}}
               </ul>
           </div>
@@ -62,11 +78,7 @@
 
             </div>
 
-              <div class="col">
-                  <div id="Botonreportar" class="form-floating">
-                      <input class="botonPrincipal" type="submit" value="Reporte">
-                  </div>
-             </div>
+
          </div>
       </section>
   </form>

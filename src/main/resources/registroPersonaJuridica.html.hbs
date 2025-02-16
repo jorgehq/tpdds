@@ -13,7 +13,7 @@
 <body>
 
 <h1 class="titulosPantallasSinLayout">Crea tu cuenta</h1>
-<form action="/registro/negocio" method="POST">
+<form action="/registro/negocios" method="POST">
       <div class="row">
            <div class="col">
                <div class="form-floating">
@@ -41,9 +41,9 @@
         <div class="col">
 
             <div class="form-floating">
-                <label for="rubro">Seleccione Rubro</label>
+
                 <select name="rubro" id="rubro" class="form-control" required>
-                    <option value=""></option>
+                    <option value=""disabled selected>Seleccione rubro</option>
                     {{#each rubros}}
                         <option value="{{this}}">{{this}}</option>
                     {{/each}}
@@ -51,9 +51,9 @@
             </div>
 
             <div class="form-floating">
-                <label for="tiporazonsocial">Tipo de Razón Social</label>
+
                 <select name="tiporazonsocial" id="tiporazonsocial" class="form-control" required>
-                    <option value=""></option>
+                    <option value=""disabled selected>Seleccion Tipo razon de social</option>
                     {{#each tiposrazonsocial}}
                         <option value="{{this}}">{{this}}</option>
                     {{/each}}
@@ -62,9 +62,9 @@
 
             <!-- Campo de Provincia -->
             <div class="form-floating">
-                <label for="provincia">Seleccione provincia</label>
+
                 <select name="provincia" id="provincia" required>
-                    <option value=""></option>
+                    <option value=""disabled selected>Selecccione provincia</option>
                     {{#each provincias}}
                     <option value="{{this}}">{{this}}</option>
                     {{/each}}
@@ -72,9 +72,9 @@
             </div>
 
             <div class="form-floating">
-                <label for="localidad">Seleccione provincia</label>
+
                 <select name="localidad" id="localidad" required>
-                    <option value=""></option>
+                    <option value=""disabled selected>Seleccione localidad</option>
                     {{#each localidades}}
                     <option value="{{this}}">{{this}}</option>
                     {{/each}}

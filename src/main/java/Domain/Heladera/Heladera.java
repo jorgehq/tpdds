@@ -95,6 +95,10 @@ public class Heladera {
     return this.estadoHeladera;
   }
 
+  public EstadoHeladera getEstadoHeladera() {
+    return estadoHeladera;
+  }
+
   public LocalDate getFechaPuestaEnMarcha() {
     return fechaPuestaEnMarcha;
   }
@@ -148,27 +152,34 @@ public class Heladera {
     return viandasEnHeladera.size();
   }
 
-  public void notificarInteresados(Notificacion n){
-    if(n instanceof NotificacionIncidente){
+  public void notificarInteresados(Notificacion n) {
+    if (n instanceof NotificacionIncidente) {
       marcarComoInactiva();
     }
 
-    for(Colaborador c:interesados){
-      for(Notificacion noti:c.getNotificaciones()){
-        if(noti.getHeladera()==n.getHeladera() && n.getTipoNotificacion().equals(noti.getTipoNotificacion())){
+    boolean notificacionYaEntregada = false;
+
+    List<Colaborador> copiaInteresados = new ArrayList<>(interesados);
+
+    for (Colaborador c : copiaInteresados) {
+      for (Notificacion noti : c.getNotificaciones()) {
+        if (noti.getHeladera() == n.getHeladera() && n.getTipoNotificacion().equals(noti.getTipoNotificacion())) {
           System.out.println("========================= Ya entregado =================================");
-          return;
-        }else{
-          RepoNotificaciones.getInstance().guardar(n);
-          c.realizarNotificacionPor(n);
+          notificacionYaEntregada = true;
+          break;
         }
+      }
+      if (!notificacionYaEntregada) {
+        RepoNotificaciones.getInstance().guardar(n);
+        c.realizarNotificacionPor(n);
       }
     }
   }
   public int cantidadSolicitudesVianda(){
     int cantidad=0;
-    for(SolicitudColaboracion s:solicitudesColaboracion){
-      if(s.getColaboracion() instanceof DonarVianda && !s.realizada && !s.isExpired()){
+    for(SolicitudColaboracion s:RepoHeladera.getInstance().obtenerSolicitudesPorHeladeraId(id)){
+
+      if(s.getColaboracion() instanceof DonarVianda && !s.getRealizada() && !s.isExpired()){
         cantidad++;
       }
     }
@@ -176,7 +187,7 @@ public class Heladera {
   }
   public int cantidadSolicitudesDistribucion(){
     int cantidad=0;
-    for(SolicitudColaboracion s:solicitudesColaboracion){
+    for(SolicitudColaboracion s:RepoHeladera.getInstance().obtenerSolicitudesPorHeladeraId(id)){
       if(s.getColaboracion() instanceof DistribuirVianda && !s.realizada && !s.isExpired() ){
         cantidad+=s.getCantidad();
       }

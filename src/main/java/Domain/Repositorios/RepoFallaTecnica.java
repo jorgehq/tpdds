@@ -1,12 +1,15 @@
 package Domain.Repositorios;
 
+import Domain.Heladera.Heladera;
 import Domain.Incidentes.FallaTecnica;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RepoFallaTecnica {
   private EntityManagerFactory emf;
@@ -35,14 +38,19 @@ public class RepoFallaTecnica {
 
 
 
-  public List<FallaTecnica> obtenerTodos() {
-
+  public Set<FallaTecnica> obtenerTodos() {
     TypedQuery<FallaTecnica> query = em.createQuery("SELECT u FROM FallaTecnica u", FallaTecnica.class);
-
     List<FallaTecnica> fallas = query.getResultList();
-    return fallas;
+    return new HashSet<>(fallas); // Convertimos la List a un Set
   }
-
+  public FallaTecnica obtenerPorHeladera(Heladera heladera) {
+      TypedQuery<FallaTecnica> query = em.createQuery(
+              "SELECT f FROM FallaTecnica f WHERE f.heladera = :heladera",
+              FallaTecnica.class
+      );
+      query.setParameter("heladera", heladera);
+    return query.getSingleResult();
+    }
   public void guardar(FallaTecnica falla) {
     em.getTransaction().begin();
     em.persist(falla);

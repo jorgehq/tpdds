@@ -4,6 +4,7 @@ import Domain.Colaborador.Colaborador;
 import Domain.Heladera.Heladera;
 import Domain.Repositorios.RepoColaboradores;
 import Domain.Repositorios.RepoHeladera;
+import Domain.Server.Enums.Filtros;
 import Domain.Server.TemplateRender;
 import io.javalin.http.Context;
 
@@ -13,8 +14,7 @@ public class HeladeraController {
     public void pantallaPrincipal(Context ctx) {
 
         String usuarioID = ctx.sessionAttribute("usuarioID");
-        Map<String, Object> model = new HashMap<>();
-        model.put("esAdmin", ctx.sessionAttribute("esAdmin"));
+        Map<String, Object> model = ctx.attribute("sharedData");
         Set<Heladera> filtradas;
         if (usuarioID == null) {
             ctx.redirect("/");
@@ -22,26 +22,27 @@ public class HeladeraController {
             String filtro = ctx.queryParam("filtro");
             String dato = ctx.queryParam("dato");
             if (filtro == null) {
-
+                filtradas = RepoHeladera.getInstance().obtenerTodos();
+                model.put("heladeras", filtradas);
                 TemplateRender.render(ctx, "heladeras.html.hbs", model);
                 return;
             }
             try {
-                int filtroInt = Integer.parseInt(filtro);
-                switch (filtroInt) {
-                    case 0:
+
+                switch (Filtros.valueOf(filtro)) {
+                    case TODAS:
                         filtradas = RepoHeladera.getInstance().obtenerTodos();
                         model.put("heladeras", filtradas);
                         break;
-                    case 1:
+                    case NOMBRE:
                         filtradas = RepoHeladera.getInstance().filtrarPorNombre(dato);
                         model.put("heladeras", filtradas);
                         break;
-                    case 2:
+                    case LOCALIDAD:
                         filtradas = RepoHeladera.getInstance().filtrarPorLocalidad(dato);
                         model.put("heladeras", filtradas);
                         break;
-                    case 3:
+                    case DIRECCION:
                         filtradas = RepoHeladera.getInstance().filtrarPorDireccion(dato);
                         model.put("heladeras", filtradas);
                         break;
@@ -62,10 +63,9 @@ public class HeladeraController {
     public void suscribirseOreportar(Context ctx){
 
         List<String> heladeras = ctx.formParams("heladeraId");
-        String action = ctx.formParam("action");
         Colaborador colaborador= RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
 
-        if("suscripcion".equals(action)){
+
 
             for(String id:heladeras){
                 Heladera h=RepoHeladera.getInstance().buscarPorId(Long.parseLong(id));
@@ -78,17 +78,8 @@ public class HeladeraController {
                 }
             }
             ctx.redirect("/heladeras");
-        }else{
-            if(heladeras.size()==0){
-                ctx.redirect("/heladeras");
-            }else{
-                Heladera heladera= RepoHeladera.getInstance().buscarPorId(Long.parseLong(heladeras.get(0)));
-
-                ctx.redirect("/falla?heladeraID="+heladera.getId());
-            }
-
         }
 
     }
 
-}
+

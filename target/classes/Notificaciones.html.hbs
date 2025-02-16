@@ -1,7 +1,11 @@
 {{# partial "contenido" }}
     <head>
+
       <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
           <link rel="stylesheet" type="text/css" href="assets/general.css">
           <link rel="stylesheet" type="text/css" href="assets/Notificaciones.css">
 
@@ -12,21 +16,28 @@
       <body >
         <h1 class="titulosPantallasSinLayout">Notificaciones</h1>
 
-
           <section>
                <ul>
                  {{#each Notificaciones}}
                    <li>
-                     <!-- Información de la heladera -->
-                     <strong>Nombre de la Heladera:</strong> {{this.heladera.nombre}} <br>
-                     <strong>Dirección:</strong> {{this.heladera.direccion.provincia}} {{this.heladera.direccion.localidad}} {{this.heladera.direccion.direccion}} <br>
-                      <strong>Tipo Notificacion:</strong> {{lookup ../TiposNotificacion @index}} <br>
-                     <!-- Datos de la notificación -->
-                     <strong>Viandas Actualmente en Heladera:</strong> {{lookup ../CantidadViandas @index}} <br>
-                     <strong>Viandas Faltantes:</strong> {{lookup ../Faltantes @index}} <br>
-                     <strong>Viandas en Camino (Solicitudes):</strong> {{lookup ../EnCamino @index}} <br>
-
-                      <a href="{{lookup ../Enlaces @index}}">Colaborar</a>
+                       <div class="contenedor-heladera">
+                           <div class="info-contenido">
+                               <!-- Información de la heladera -->
+                               <strong>Nombre de la Heladera:</strong> {{this.heladera.nombre}} <br>
+                               <strong>Dirección:</strong> {{this.heladera.direccion.provincia}} {{this.heladera.direccion.localidad}} {{this.heladera.direccion.direccion}} <br>
+                               <strong>Tipo Notificacion:</strong> {{lookup ../TiposNotificacion @index}} <br>
+                               <!-- Datos de la notificación -->
+                               <strong>Viandas Actualmente en Heladera:</strong> {{lookup ../CantidadViandas @index}} <br>
+                               <strong>Viandas Faltantes:</strong> {{lookup ../Faltantes @index}} <br>
+                               <strong>Viandas en Camino (Solicitudes):</strong> {{lookup ../EnCamino @index}} <br>
+                           </div>
+                           <div id="BotonColaborar" class="boton-reportar">
+                               <a href="{{lookup ../Enlaces @index}}" class="botonPrincipal">Colaborar</a>
+                           </div>
+                       </div>
+                       {{#unless @last}}
+                       <div class="lineaDivisoria2"></div>
+                       {{/unless}}
                    </li>
                  {{/each}}
                </ul>

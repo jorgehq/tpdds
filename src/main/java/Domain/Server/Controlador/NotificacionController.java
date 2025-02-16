@@ -11,10 +11,7 @@ import Domain.Repositorios.RepoNotificaciones;
 import Domain.Server.TemplateRender;
 import io.javalin.http.Context;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,13 +19,18 @@ public class NotificacionController {
 
     public void pantallaNotificaciones(Context ctx) {
         String usuarioID = ctx.sessionAttribute("usuarioID");
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = ctx.attribute("sharedData");
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
+
+        String error = ctx.sessionAttribute("error");
+        if (error != null) {
+            model.put("error", error);
+            ctx.sessionAttribute("error", null); // Limpiar el error después de mostrarlo
+        }
         List<Notificacion> filtradas ;
         if (usuarioID == null) {
             ctx.redirect("/");
         } else {
-            String filtro = ctx.queryParam("filtro");
             Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
 
                 filtradas = new ArrayList<>(colaborador.getNotificaciones());
@@ -50,16 +52,17 @@ public class NotificacionController {
 
                         Heladera h= RepoHeladera.getInstance().buscarPorId(n.getHeladera().getId());
 
-                        cantidadActual.add(h.cantidadViandas());
-
                         if (n instanceof NotificacionFaltanViandas) {
-                            cantidadFaltante.add(n.getHeladera().getCapacidadDeViandas() - n.getHeladera().cantidadViandas());
+                            cantidadActual.add(h.cantidadViandas());
+                            cantidadFaltante.add(n.getHeladera().getCapacidadDeViandas() - h.cantidadViandas());
                             cantidadDonada.add(n.getHeladera().cantidadSolicitudesVianda());
                             tiposNotificacion.add("FaltanViandas");
                             enlaces.add("/colaboracion/vianda?heladeraID="+n.getHeladera().getId());
 
                         } else if (n instanceof NotificacionIncidente) {
-                            cantidadFaltante.add(n.getHeladera().cantidadViandas());
+                            int faltantes=h.cantidadViandas();
+                            cantidadActual.add(h.cantidadViandas());
+                            cantidadFaltante.add(faltantes);
                             cantidadDonada.add(n.getHeladera().cantidadSolicitudesDistribucion());
                             tiposNotificacion.add("Incidente");
                             enlaces.add("/colaboracion/distribucion?heladeraId="+n.getHeladera().getId()+"&heladeraId2="+((NotificacionIncidente) n).getSugerencia().getHeladera().getId());
@@ -78,27 +81,15 @@ public class NotificacionController {
                     model.put("EnCamino", cantidadDonada);
                     model.put("Enlaces",enlaces);
 
+                    ctx.header("Cache-Control", "no-cache, no-store, must-revalidate");
+                    ctx.header("Pragma", "no-cache");
+                    ctx.header("Expires", "0");
                     TemplateRender.render(ctx, "/Notificaciones.html.hbs", model);
                 }
 
 
 
 
-        }
-    }
-    public void aceptarNotificacion(Context ctx){
-        String notidicacionId=ctx.formParam("tipo");
-
-        Notificacion n= RepoNotificaciones.getInstance().buscarPorId(Long.parseLong(ctx.formParam(notidicacionId)));
-
-        if(n instanceof NotificacionFaltanViandas){
-            //FAltan viandas
-            NotificacionFaltanViandas faltanViandas=(NotificacionFaltanViandas)n;
-
-            ctx.redirect( "/donar_vianda?heladeraId=" + faltanViandas.getHeladera().getId());
-        }else{
-            NotificacionIncidente incidente=(NotificacionIncidente)n;
-            ctx.redirect( "/donar_vianda?heladeraId=" + incidente.getHeladera().getId() + "&heladeraId2=" + incidente.getSugerencia().getHeladera().getId());
         }
     }
 }

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class CuentaController {
     public void pantalla_cuenta_principal(Context ctx) {
         String sesion = ctx.sessionAttribute("usuarioID");
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = ctx.attribute("sharedData");
         List<Heladera> filtradas=new ArrayList<>();
         if(sesion==null){
             ctx.redirect("/");
@@ -28,13 +28,18 @@ public class CuentaController {
         if(u.getAsignado() instanceof  PersonaHumana){
             PersonaHumana ph=(PersonaHumana) u.getAsignado();
 
+
+            String direccion=u.getAsignado().getDireccion().direccion;
+
+            System.out.println("????????????????????????????????????????confirmacion "+u.getAsignado().getDireccion().direccion);
+            System.out.println("????????????????????????????????????????confirmacion "+direccion);
             model.put("nombre", u.getNombre());
             model.put("email",ph.getMediosDeContacto().get(0).getContacto());
             model.put("celular", ph.getMediosDeContacto().get(1).getContacto());
             model.put("nombreUsuario", u.getNombreUsuario());
             model.put("contrasenia", u.getContrasenia());
-            model.put("direccion", ph.getDireccion().getDireccion());
-            model.put("dni", ph.getDocumento());
+            model.put("direccion", direccion);
+            model.put("dni", u.getAsignado().getDocumento());
 
             TemplateRender.render(ctx, "/Cuenta.html.hbs", model);
         }else{
@@ -67,9 +72,6 @@ public class CuentaController {
         String dni = ctx.formParam("dni");
 
         String sesion = ctx.sessionAttribute("usuarioID");
-        if (!contrasenia.equals(contraseniaR)) {
-           ctx.redirect("/cuenta");
-        }
 
         Usuario o = RepoUsuario.getInstance().buscarPorIdColaborador(Long.parseLong(sesion));
         System.out.println(nombre + " " + apellido + " " + email + " " + celular);
@@ -83,6 +85,7 @@ public class CuentaController {
         o.getAsignado().getMediosDeContacto().get(1).setContacto(celular);
         RepoUsuario.getInstance().guardar(o);
 
+
         ctx.redirect("/cuenta");
     }
 
@@ -95,11 +98,15 @@ public class CuentaController {
         String sesion = ctx.sessionAttribute("usuarioID");
         Usuario o = RepoUsuario.getInstance().buscarPorIdColaborador(Long.parseLong(sesion));
         Set<SolicitudColaboracion> todas= RepoSolicitudColaboracion.getInstance()
-                .obtenerTodos().stream().filter(t->t.tarjeta.getCodigo().equals(o.getAsignado().getTarjeta().getCodigo())
+                .obtenerTodos();
+        for(SolicitudColaboracion s:todas){
+            System.out.println(" Tarjeta: "+s.getTarjeta().getCodigo()+" ID: "+s.getTarjeta().getId()+" Colaborador: "+s.getTarjeta().getColaborador().getId());
+        }
+        Set<SolicitudColaboracion> filtradas=  todas.stream().filter(t->t.tarjeta.getColaborador().getId().equals(o.getAsignado().getId())
                         && t.realizada==false )
                 .collect(Collectors.toSet());
         System.out.println("cantidad solicitudes "+todas.size());
-        for(SolicitudColaboracion s:todas){
+        for(SolicitudColaboracion s:filtradas){
             System.out.println("========================================");
             System.out.println("Instanciando la solicitud "+s.getId());
             s.instanciarColaboracion();

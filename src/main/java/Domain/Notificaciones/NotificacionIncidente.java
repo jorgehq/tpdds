@@ -20,6 +20,7 @@ public class NotificacionIncidente extends Notificacion {
     public NotificacionIncidente() {
 
     }
+
     public NotificacionIncidente( Heladera heladera, Sugerencia criterio,String descripcion) {
         this.descripcion=descripcion;
         this.heladera = heladera;

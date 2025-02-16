@@ -5,6 +5,7 @@ import Domain.Solicitudes.SolicitudColaboracion;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +29,7 @@ public class CronVerificarSolicitudes {
 
     public void verificarSolicitudes(){
        this.mostrar();
-      List<SolicitudColaboracion> lista=RepoSolicitudColaboracion.getInstance().obtenerTodos();
+      Set<SolicitudColaboracion> lista=RepoSolicitudColaboracion.getInstance().obtenerTodos();
       System.out.println("==============================Cantidad Solicitudes en Lista: "+lista.size()+" ===========================================");
       for(SolicitudColaboracion s:lista){
 
