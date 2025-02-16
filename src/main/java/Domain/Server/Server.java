@@ -80,6 +80,7 @@ public class Server {
     app.post("/cuenta/colaborar", cuentaController::AceptarTodasColaboraciones);
 
 
+    iniciarBD();
    // int port = Integer.parseInt(System.getenv("PORT"));
     app.before(ctx -> {
       Map<String, Object> sharedData = new HashMap<>();
