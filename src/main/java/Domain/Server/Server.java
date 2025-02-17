@@ -40,24 +40,24 @@ public class Server {
     app.post("/negocios", registroController::crearUsuarioPersonaJuridica);
 
     app.get("/colaboracion", colaboracionController::principal);
-    app.post("/colaboraciones/elecciones", colaboracionController::eleccionColaboracion);
+    app.post("/elecciones-colaboraciones", colaboracionController::eleccionColaboracion);
 
     app.get("/colaboracion/dinero", colaboracionController::pantalla_donar_dinero);
-    app.post("/colaboraciones/dinero", colaboracionController::donar_dinero);
+    app.post("/colaboraciones-dinero", colaboracionController::donar_dinero);
 
     app.get("/colaboracion/vianda", colaboracionController::pantalla_donar_vianda);
-    app.post("/colaboraciones/viandas", colaboracionController::donar_vianda);
+    app.post("/viandas", colaboracionController::donar_vianda);
 
     app.get("/colaboracion/distribucion", colaboracionController::pantalla_distribuir_viandas);
-    app.post("/colaboraciones/distribuciones", colaboracionController::distribuir_viandas);
+    app.post("/distribuciones", colaboracionController::distribuir_viandas);
 
     app.get("/colaboracion/heladera", colaboracionController::pantalla_donar_heladera);
-    app.post("/colaboraciones/heladeras", colaboracionController::donar_heladera);
+    app.post("/colaboraciones-heladeras", colaboracionController::donar_heladera); // Porq heladeras ya existe
 
     app.get("/colaboracion/persona-vulnerable", colaboracionController::pantalla_persona_vulnerable);
-    app.post("/colaboraciones/personas-vulnerables", colaboracionController::registro_persona_vulnerable);
+    app.post("/personas-vulnerables", colaboracionController::registro_persona_vulnerable);
 
-    app.post("/colaboraciones/tarjetas", colaboracionController::registro_persona_vulnerable);
+    app.post("/tarjetas", colaboracionController::registro_persona_vulnerable);
 
 
     app.get("/heladeras", heladeraController::pantallaPrincipal);
@@ -68,10 +68,10 @@ public class Server {
     app.post("/fallas", fallaTecnicaControler::reportar_falla);
 
     app.get("/reporte", reporteController::pantallaPrincipal);
-    app.post("/reportes/descargas", reporteController::descargarReporte);
+    app.post("/reporte/descargar", reporteController::descargarReporte); //Cambiar a get
 
     app.get("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
-    app.post("/colaboraciones/archivos", cargaColaboracionController::cargar_archivo);
+    app.post("/colaboraciones/csv", cargaColaboracionController::cargar_archivo);
 
 
     app.get("/notificaciones", notificacionController::pantallaNotificaciones);
@@ -80,7 +80,7 @@ public class Server {
     app.post("/cuentas", cuentaController::modificarCuenta);
 
     app.get("/cuenta/cerrar", cuentaController::cerrarCuenta);
-    app.post("/cuentas/colaboraciones", cuentaController::AceptarTodasColaboraciones);
+    app.post("/colaboraciones", cuentaController::AceptarTodasColaboraciones);
 
 
     iniciarBD();
