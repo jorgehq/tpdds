@@ -81,17 +81,25 @@ public class CronVerificandoIntegridadHeladeras {
         System.out.println("=======================================================");
 
 
-        // Verificar si ya existe una notificación de falta de viandas para esta heladera
+        List<Notificacion> notificacionesDeEstaHeladera = notificaciones.stream()
+                .filter(notificacion -> notificacion.getHeladera().equals(heladera))
+                .collect(Collectors.toList());
+
+        System.out.println("cantidad de notis de heladera duplicadas  "+notificacionesDeEstaHeladera.size());
+// Verificar si ya existe una notificación de falta de viandas para esta heladera
         boolean notificacionExistente = false;
-        for (Notificacion notificacion : notificaciones) {
-          System.out.println("Notificaciones data: "+notificacion.getId()+" Heladera "+notificacion.getHeladera().getNombre()
-                  +" tipo: "+notificacion.getTipoNotificacion());
-          if (notificacion.getHeladera().equals(heladera) && notificacion instanceof NotificacionFaltanViandas) {
+        for (Notificacion notificacion : notificacionesDeEstaHeladera) {
+          System.out.println("Notificaciones data: " + notificacion.getId() +
+                  " Heladera " + notificacion.getHeladera().getNombre() +
+                  " tipo: " + notificacion.getTipoNotificacion());
+
+          if (notificacion instanceof NotificacionFaltanViandas) {
             notificacionExistente = true;
             break; // Salir del bucle al encontrar la notificación
           }
         }
-        System.out.println("??????????????????????????????La notificacion ya existe?"+ notificacionExistente);
+
+        System.out.println("?????????????????????????????? La notificacion ya existe? " + notificacionExistente);
         if (!notificacionExistente) {
           System.out.println("===========================Creando una nueva notificaicona para viandas faltantres");
           NotificacionFaltanViandas notificacion = new NotificacionFaltanViandas(
