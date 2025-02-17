@@ -91,9 +91,9 @@ public class CronVerificandoIntegridadHeladeras {
             break; // Salir del bucle al encontrar la notificación
           }
         }
-
+        System.out.println("??????????????????????????????La notificacion ya existe?"+ notificacionExistente);
         if (!notificacionExistente) {
-          // Crear y guardar una nueva notificación de falta de viandas
+          System.out.println("===========================Creando una nueva notificaicona para viandas faltantres");
           NotificacionFaltanViandas notificacion = new NotificacionFaltanViandas(
                   heladera.getCapacidadDeViandas() - heladera.getViandasEnHeladera().size(),
                   heladera

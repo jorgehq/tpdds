@@ -175,7 +175,7 @@ public class Heladera {
         RepoNotificaciones.getInstance().guardar(n);
         c.realizarNotificacionPor(n);
       }
-      System.out.println("================= No esta suscripto");
+      System.out.println("================= Ya esta entregado");
 
     }
   }
