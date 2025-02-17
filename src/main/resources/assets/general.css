@@ -187,6 +187,7 @@ h2 {
     width: 50%;
 }
 .contenedor-heladera {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;

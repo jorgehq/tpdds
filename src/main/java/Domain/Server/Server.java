@@ -57,8 +57,7 @@ public class Server {
     app.get("/colaboracion/persona-vulnerable", colaboracionController::pantalla_persona_vulnerable);
     app.post("/personas-vulnerables", colaboracionController::registro_persona_vulnerable);
 
-    app.post("/tarjetas", colaboracionController::registro_persona_vulnerable);
-
+    app.post("/tarjetas", colaboracionController::solicitarTarjetas);
 
     app.get("/heladeras", heladeraController::pantallaPrincipal);
     app.post("/heladeras", heladeraController::suscribirseOreportar);
@@ -75,6 +74,7 @@ public class Server {
 
 
     app.get("/notificaciones", notificacionController::pantallaNotificaciones);
+    app.get("/notificaciones/eliminar", notificacionController::eliminarNotificacionColaborador);
 
     app.get("/cuenta", cuentaController::pantalla_cuenta_principal);
     app.post("/cuentas", cuentaController::modificarCuenta);

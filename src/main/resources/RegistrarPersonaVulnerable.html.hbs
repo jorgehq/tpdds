@@ -68,24 +68,28 @@
                         <input class="botonPrincipal" type="submit" value="Crear">
                     </div>
       </form>
-       <div class="row">
-           <div class="col">
-       <div class="form-floating">
-           <label for="tarjetasDisponibles" class="form-label">Tarjetas Disponibles</label>
-           <select class="form-select" id="tarjetasDisponibles">
-               <option value="">Seleccione una tarjeta</option>
-               {{#each tarjetas}}
-               <option value="{{this.codigo}}">{{this.codigo}}</option>
-               {{/each}}
-           </select>
-       </div>
-      </div>
-    <div class="col">
-       <form action="/tarjetas" method="POST">
-           <div id="botonSolicitarTarjeta" class="form-floating">
-               <input class="botonPrincipal" type="submit" value="Solicitar">
+
+       <div id="formularioContenedor">
+           <div class="row">
+               <div class="col">
+                   <div class="form-floating">
+                       <select class="form-select" id="tarjetasDisponibles">
+                           <option value=""></option>
+                           {{#each tarjetas}}
+                           <option value="{{this.codigo}}">{{this.codigo}}</option>
+                           {{/each}}
+                       </select>
+                   </div>
+               </div>
+               <div class="col">
+                   <form action="/tarjetas" method="POST">
+                       <div id="botonSolicitarTarjeta" class="form-floating">
+                           <input class="botonPrincipal" type="submit" value="Solicitar">
+                       </div>
+                   </form>
+               </div>
+
            </div>
-       </form>
-    </div>
+       </div>
            {{/partial}}
        {{> BarraNavegacion.html }}

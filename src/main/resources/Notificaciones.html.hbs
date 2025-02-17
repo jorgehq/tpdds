@@ -3,9 +3,7 @@
 
       <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="0">
+
           <link rel="stylesheet" type="text/css" href="assets/general.css">
           <link rel="stylesheet" type="text/css" href="assets/Notificaciones.css">
 
@@ -33,6 +31,9 @@
                            </div>
                            <div id="BotonColaborar" class="boton-reportar">
                                <a href="{{lookup ../Enlaces @index}}" class="botonPrincipal">Colaborar</a>
+                           </div>
+                           <div class="boton-eliminar">
+                               <a href="/notificaciones/eliminar?idNotificacion={{this.id}}" class="eliminar-notificacion">X</a>
                            </div>
                        </div>
                        {{#unless @last}}

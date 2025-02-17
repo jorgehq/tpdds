@@ -61,19 +61,19 @@ public class CronVerificandoIntegridadHeladeras {
         System.out.println("=======================================================");
 
         // Buscar la notificación de incidente para esta heladera
-        Notificacion notificacionExistente = null;
-        for (Notificacion notificacion : notificaciones) {
-          if (notificacion.getHeladera().equals(heladera) && notificacion instanceof NotificacionIncidente) {
-            notificacionExistente = notificacion;
-            break; // Salir del bucle al encontrar la notificación
-          }
-        }
+        NotificacionIncidente notificacionExistente = (NotificacionIncidente) notificaciones.stream()
+                .filter(n->n.getHeladera().getId()==heladera.getId())
+                .filter(n->n.getTipoNotificacion()=="Incidente").collect(Collectors.toList()).get(0);
 
-        if (notificacionExistente != null) {
+
+        System.out.println("============================Viandas en esta heladera "
+                +notificacionExistente.getHeladera().getNombre()
+                +" cantidad "+notificacionExistente.getHeladera().getViandasEnHeladera().size()
+                        +" Esta avferiada "+notificacionExistente.getSugerencia().getHeladera().getEstadoHeladera().getHeladeraAveriada());
+        if (notificacionExistente != null && notificacionExistente.getHeladera().getViandasEnHeladera().size()!=0
+                && !notificacionExistente.getSugerencia().getHeladera().getEstadoHeladera().getHeladeraAveriada()) {
           // Notificar a los interesados si la notificación existe
           heladera.notificarInteresados(notificacionExistente);
-        } else {
-          System.out.println("No se encontró una notificación de incidente para la heladera " + heladera.getNombre());
         }
       } else if (heladera.getViandasEnHeladera().size() < 20) {
         System.out.println("=======================================================");
@@ -82,11 +82,10 @@ public class CronVerificandoIntegridadHeladeras {
 
 
         List<Notificacion> notificacionesDeEstaHeladera = notificaciones.stream()
-                .filter(notificacion -> notificacion.getHeladera().equals(heladera))
+                .filter(notificacion -> notificacion.getHeladera().getId().equals(heladera.getId()))
                 .collect(Collectors.toList());
-
-        System.out.println("cantidad de notis de heladera duplicadas  "+notificacionesDeEstaHeladera.size());
 // Verificar si ya existe una notificación de falta de viandas para esta heladera
+
         boolean notificacionExistente = false;
         for (Notificacion notificacion : notificacionesDeEstaHeladera) {
           System.out.println("Notificaciones data: " + notificacion.getId() +
@@ -95,13 +94,12 @@ public class CronVerificandoIntegridadHeladeras {
 
           if (notificacion instanceof NotificacionFaltanViandas) {
             notificacionExistente = true;
+
             break; // Salir del bucle al encontrar la notificación
           }
         }
 
-        System.out.println("?????????????????????????????? La notificacion ya existe? " + notificacionExistente);
         if (!notificacionExistente) {
-          System.out.println("===========================Creando una nueva notificaicona para viandas faltantres");
           NotificacionFaltanViandas notificacion = new NotificacionFaltanViandas(
                   heladera.getCapacidadDeViandas() - heladera.getViandasEnHeladera().size(),
                   heladera
@@ -109,6 +107,8 @@ public class CronVerificandoIntegridadHeladeras {
           RepoNotificaciones.getInstance().guardar(notificacion);
           heladera.notificarInteresados(notificacion);
         }
+        System.out.println("SE mandara la notificacion");
+        heladera.notificarInteresados(notificacionesDeEstaHeladera.get(0));
       }
     }
   }

@@ -48,6 +48,9 @@ public class RepoHeladera {
 
     List<Heladera> listaHeladeras = query.getResultList();
     Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
+    for(Heladera h:heladeras){
+      em.refresh(h);
+    }
 
     return heladeras;
   }

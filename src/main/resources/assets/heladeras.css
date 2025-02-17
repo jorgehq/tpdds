@@ -21,9 +21,10 @@ form {
     box-sizing: border-box;
 }
 
-#botonSubmitColaboracion {
+#Botonsuscripcion {
     height: 52px;
-    width: 100%;
+    width: 20%;
+    left: 550px;
 }
 #botonSubmitFiltro {
     height: 52px;

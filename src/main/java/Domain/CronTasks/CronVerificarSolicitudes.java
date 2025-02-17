@@ -40,10 +40,6 @@ public class CronVerificarSolicitudes {
             System.out.println("Se encontro una solicitud expirada");
             System.out.println("=======================================================");
 
-        }else{
-            System.out.println("=======================================================");
-            System.out.println("Solicitud "+s.getId()+" no esta expirada");
-            System.out.println("=======================================================");
         }
       }
      }

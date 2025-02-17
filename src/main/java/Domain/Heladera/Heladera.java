@@ -161,6 +161,7 @@ public class Heladera {
 
     List<Colaborador> copiaInteresados = new ArrayList<>(interesados);
 
+    System.out.println("====================Interesados: "+copiaInteresados.size());
     for (Colaborador c : copiaInteresados) {
       for (Notificacion noti : c.getNotificaciones()) {
         if (noti.getHeladera() == n.getHeladera() && n.getTipoNotificacion().equals(noti.getTipoNotificacion())) {
