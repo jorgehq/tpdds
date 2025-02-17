@@ -170,9 +170,13 @@ public class Heladera {
         }
       }
       if (!notificacionYaEntregada) {
+        System.out.println("================= SE encontro un usuario sin la notificacion y esta suscripto, enviando");
+
         RepoNotificaciones.getInstance().guardar(n);
         c.realizarNotificacionPor(n);
       }
+      System.out.println("================= No esta suscripto");
+
     }
   }
   public int cantidadSolicitudesVianda(){

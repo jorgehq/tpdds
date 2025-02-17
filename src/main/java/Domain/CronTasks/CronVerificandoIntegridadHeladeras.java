@@ -80,9 +80,12 @@ public class CronVerificandoIntegridadHeladeras {
         System.out.println("SE detectó falta de viandas en la heladera " + heladera.getNombre() + ". Mandando notificaciones faltantes.");
         System.out.println("=======================================================");
 
+
         // Verificar si ya existe una notificación de falta de viandas para esta heladera
         boolean notificacionExistente = false;
         for (Notificacion notificacion : notificaciones) {
+          System.out.println("Notificaciones data: "+notificacion.getId()+" Heladera "+notificacion.getHeladera().getNombre()
+                  +" tipo: "+notificacion.getTipoNotificacion());
           if (notificacion.getHeladera().equals(heladera) && notificacion instanceof NotificacionFaltanViandas) {
             notificacionExistente = true;
             break; // Salir del bucle al encontrar la notificación
