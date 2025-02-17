@@ -31,33 +31,33 @@ public class Server {
     app.post("/login", usuarioControlador::inicioSesion);
 
     app.get("/registro", registroController::eleccion);
-    app.post("/registro/colaborador", registroController::eleccionColaborador);
+    app.post("/colaboradores", registroController::eleccionColaborador);
 
     app.get("/registro/persona", registroController::pantallaPersonaHumana);
-    app.post("/registro/personas", registroController::crearUsuarioPersonaHumana);
+    app.post("/personas", registroController::crearUsuarioPersonaHumana);
 
     app.get("/registro/negocio", registroController::pantallaPersonaJuridica);
-    app.post("/registro/negocios", registroController::crearUsuarioPersonaJuridica);
+    app.post("/negocios", registroController::crearUsuarioPersonaJuridica);
 
     app.get("/colaboracion", colaboracionController::principal);
-    app.post("/colaboracion/eleccion", colaboracionController::eleccionColaboracion);
+    app.post("/colaboraciones/elecciones", colaboracionController::eleccionColaboracion);
 
     app.get("/colaboracion/dinero", colaboracionController::pantalla_donar_dinero);
-    app.post("/colaboracion/dinero", colaboracionController::donar_dinero);
+    app.post("/colaboraciones/dinero", colaboracionController::donar_dinero);
 
     app.get("/colaboracion/vianda", colaboracionController::pantalla_donar_vianda);
-    app.post("/colaboracion/viandas", colaboracionController::donar_vianda);
+    app.post("/colaboraciones/viandas", colaboracionController::donar_vianda);
 
     app.get("/colaboracion/distribucion", colaboracionController::pantalla_distribuir_viandas);
-    app.post("/colaboracion/distribuciones", colaboracionController::distribuir_viandas);
+    app.post("/colaboraciones/distribuciones", colaboracionController::distribuir_viandas);
 
     app.get("/colaboracion/heladera", colaboracionController::pantalla_donar_heladera);
-    app.post("/colaboracion/heladeras", colaboracionController::donar_heladera);
+    app.post("/colaboraciones/heladeras", colaboracionController::donar_heladera);
 
     app.get("/colaboracion/persona-vulnerable", colaboracionController::pantalla_persona_vulnerable);
-    app.post("/colaboracion/personas-vulnerables", colaboracionController::registro_persona_vulnerable);
+    app.post("/colaboraciones/personas-vulnerables", colaboracionController::registro_persona_vulnerable);
 
-    app.post("/colaboracion/tarjetas", colaboracionController::registro_persona_vulnerable);
+    app.post("/colaboraciones/tarjetas", colaboracionController::registro_persona_vulnerable);
 
 
     app.get("/heladeras", heladeraController::pantallaPrincipal);
@@ -65,13 +65,13 @@ public class Server {
     ///heladeras/{id_heladera}
 
     app.get("/falla", fallaTecnicaControler::pantalla_reportar_falla);
-    app.post("/falla", fallaTecnicaControler::reportar_falla);
+    app.post("/fallas", fallaTecnicaControler::reportar_falla);
 
     app.get("/reporte", reporteController::pantallaPrincipal);
-    app.post("/reporte/descargar", reporteController::descargarReporte);
+    app.post("/reportes/descargas", reporteController::descargarReporte);
 
     app.get("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
-    app.post("/colaboracion/archivo", cargaColaboracionController::cargar_archivo);
+    app.post("/colaboraciones/archivos", cargaColaboracionController::cargar_archivo);
 
 
     app.get("/notificaciones", notificacionController::pantallaNotificaciones);
@@ -80,7 +80,7 @@ public class Server {
     app.post("/cuentas", cuentaController::modificarCuenta);
 
     app.get("/cuenta/cerrar", cuentaController::cerrarCuenta);
-    app.post("/cuenta/colaborar", cuentaController::AceptarTodasColaboraciones);
+    app.post("/cuentas/colaboraciones", cuentaController::AceptarTodasColaboraciones);
 
 
     iniciarBD();
