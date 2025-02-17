@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 @Entity
 public class Tarjeta {
   @Id
@@ -26,6 +28,8 @@ public class Tarjeta {
  private Boolean enUso=false;
 
   public Tarjeta() {
+      this.codigo = generarCodigoAleatorio();
+      this.fechaRegistro = LocalDate.now();
   }
 
   public Tarjeta(String codigo) {
@@ -90,4 +94,13 @@ public class Tarjeta {
   public Long getId() {
     return id;
   }
+
+    private String generarCodigoAleatorio() {
+        Random random = new Random();
+        StringBuilder codigoGenerado = new StringBuilder();
+        for (int i = 0; i < 11; i++) {
+            codigoGenerado.append(random.nextInt(10));  // Genera un número entre 0 y 9
+        }
+        return codigoGenerado.toString();
+    }
 }

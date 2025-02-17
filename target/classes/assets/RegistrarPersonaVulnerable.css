@@ -27,4 +27,24 @@ form {
     border-radius: 4px;
     box-sizing: border-box;
 }
+#tarjetasDisponibles {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
 
+.form-floating:hover #tarjetasDisponibles {
+    opacity: 1;
+    visibility: visible;
+}
+#botonSolicitarTarjeta {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Hacer el formulario y el botón visibles cuando el mouse pase sobre el contenedor */
+.form-floating:hover #botonSolicitarTarjeta {
+    opacity: 1;
+    visibility: visible;
+}

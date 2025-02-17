@@ -18,6 +18,29 @@
 #botonColaborarCuenta {
     justify-content: center;
     margin-top: 25px;
+    opacity: 0; /* Ocultar el botón inicialmente */
+    transition: opacity 0.3s ease; /* Transición suave */
+}
+
+#botonColaborarCuenta:hover {
+    opacity: 1; /* Mostrar el botón al pasar el mouse */
+}
+
+#botonColaborarCuenta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#botonColaborarCuenta:hover {
+    opacity: 1;
 }
 
 #botonColaborarCuenta input {
@@ -27,14 +50,13 @@
 form {
     height: 100px;
     width: 1000px;
-    margin: 0 auto; /* Centrar el formulario */
+    margin: 0 auto;
 
 }
 
-/* Contenedor de cada campo del formulario */
 .form-floating {
     position: relative;
-    margin-bottom: 2rem; /* Espacio entre los campos */
+    margin-bottom: 2rem;
 }
 
 .form-control {

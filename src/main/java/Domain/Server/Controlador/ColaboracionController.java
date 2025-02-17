@@ -386,4 +386,9 @@ public class ColaboracionController {
 
         ctx.redirect("/colaboracion");
     }
+    public void solicitarTarjetas(Context ctx){
+        Tarjeta nuevaTarjeta = new Tarjeta();
+
+        RepoTarjetas.getInstance().guardar(nuevaTarjeta);
+    }
 }

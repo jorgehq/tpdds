@@ -57,6 +57,9 @@ public class Server {
     app.get("/colaboracion/persona-vulnerable", colaboracionController::pantalla_persona_vulnerable);
     app.post("/colaboracion/personas-vulnerables", colaboracionController::registro_persona_vulnerable);
 
+    app.post("/colaboracion/tarjetas", colaboracionController::registro_persona_vulnerable);
+
+
     app.get("/heladeras", heladeraController::pantallaPrincipal);
     app.post("/heladeras", heladeraController::suscribirseOreportar);
     ///heladeras/{id_heladera}
