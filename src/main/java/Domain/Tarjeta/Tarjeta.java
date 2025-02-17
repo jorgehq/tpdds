@@ -103,4 +103,8 @@ public class Tarjeta {
         }
         return codigoGenerado.toString();
     }
+
+    public Boolean getEnUso() {
+        return enUso;
+    }
 }

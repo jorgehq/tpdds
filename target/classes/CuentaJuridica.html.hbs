@@ -51,16 +51,13 @@
                            required value={{nombreUsuario}}>
                     <label for="nombreUsuario">Nombre Usuario</label>
                 </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="celular" name="celular" placeholder={{celular}}
-                    required value={{celular}}>
-                    <label for="celular">Celular</label>
-                </div>
+
                  <div class="form-floating">
                      <input type="text" class="form-control" id="direccion" name="direccion" placeholder={{direccion}}
                      required value={{direccion}}>
                      <label for="direccion">Direccion</label>
                  </div>
+
                   <div class="form-floating">
                       <input type="text" class="form-control" id="dni" name="dni" placeholder={{dni}}
                       required value={{dni}}>
@@ -71,6 +68,11 @@
 
         <div class="row" id="botonGuardarDatos">
             <input class="botonPrincipal" type="submit" value="Guardar datos">
+        </div>
+    </form>
+    <form action="/cuenta/colaborar" method="POST">
+        <div id="botonColaborarCuenta" class="form-floating">
+            <input class="botonPrincipal" type="submit" value="Colaborar">
         </div>
     </form>
 

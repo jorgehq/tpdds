@@ -59,13 +59,13 @@
         <properties>
 
 
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <!--property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
             <property name="hibernate.connection.url" value="jdbc:postgresql://dpg-cup6s7aj1k6c739gg30g-a:5432/render_x923?sslmode=require" />
             <property name="hibernate.connection.username" value="render_x923_user" />
             <property name="hibernate.connection.password" value="FzzABBExafnA9VqvDTXKmzxulv8u1V2L" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="update" /-->
 
-            <!--property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/TPBD"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/TPBD"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="1234"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -73,7 +73,7 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" /-->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
 
 
         </properties>

@@ -31,8 +31,6 @@ public class CuentaController {
 
             String direccion=u.getAsignado().getDireccion().direccion;
 
-            System.out.println("????????????????????????????????????????confirmacion "+u.getAsignado().getDireccion().direccion);
-            System.out.println("????????????????????????????????????????confirmacion "+direccion);
             model.put("nombre", u.getNombre());
             model.put("email",ph.getMediosDeContacto().get(0).getContacto());
             model.put("celular", ph.getMediosDeContacto().get(1).getContacto());
@@ -48,7 +46,6 @@ public class CuentaController {
             model.put("nombre", u.getNombre());
             model.put("razonsocial",ph.getRazonSocial());
             model.put("email",ph.getMediosDeContacto().get(0).getContacto());
-            model.put("celular", ph.getMediosDeContacto().get(1).getContacto());
             model.put("nombreUsuario", u.getNombreUsuario());
             model.put("contrasenia", u.getContrasenia());
             model.put("direccion", ph.getDireccion().getDireccion());
@@ -95,6 +92,7 @@ public class CuentaController {
         ctx.redirect("/");
     }
     public void AceptarTodasColaboraciones(Context ctx){
+        System.out.println("============================Colaborando====================================");
         String sesion = ctx.sessionAttribute("usuarioID");
         Usuario o = RepoUsuario.getInstance().buscarPorIdColaborador(Long.parseLong(sesion));
         Set<SolicitudColaboracion> todas= RepoSolicitudColaboracion.getInstance()

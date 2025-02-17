@@ -24,6 +24,7 @@ import net.bytebuddy.asm.Advice;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static Domain.Server.Enums.Filtros.TODAS;
 import static Domain.Server.Enums.Tipocolaboracion.DINERO;
@@ -343,6 +344,7 @@ public class ColaboracionController {
         model.put("esAdmin",ctx.sessionAttribute("esAdmin"));
         model.put("provincias", Provincia.values());
         model.put("localidades", Localidad.values());
+        model.put("tarjetas", RepoTarjetas.getInstance().obtenerTodos().stream().filter(t->!t.getEnUso()).collect(Collectors.toList()));
         TemplateRender.render(ctx, "/RegistrarPersonaVulnerable.html.hbs", model);
     }
 
@@ -390,5 +392,6 @@ public class ColaboracionController {
         Tarjeta nuevaTarjeta = new Tarjeta();
 
         RepoTarjetas.getInstance().guardar(nuevaTarjeta);
+        ctx.redirect("/colaboracion/persona-vulnerable");
     }
 }
