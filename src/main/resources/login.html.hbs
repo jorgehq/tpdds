@@ -7,6 +7,15 @@
 </head>
 <body>
 <h1 class="titulosPantallasSinLayout">Iniciar Sesion</h1>
+
+{{#if error}}
+<div class="popup">
+    <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <p>{{error}}</p>
+    </div>
+</div>
+{{/if}}
 <form action="/login" method="POST">
     <div class="form-floating mb-3">
         <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo Electronico" required>
@@ -28,4 +37,20 @@
 </form>
 
 </body>
+<script>
+    // Obtener el popup y el botón de cierre
+    var popup = document.querySelector('.popup');
+    var closeButton = document.querySelector('.close-popup');
+
+    // Cuando el usuario haga clic en el botón de cierre
+    closeButton.onclick = function() {
+        popup.style.display = 'none'; // Ocultar el popup
+    }
+
+    // Mostrar el popup si hay un error
+    if (popup) {
+        popup.style.display = 'flex';
+    }
+</script>
+
 </html>

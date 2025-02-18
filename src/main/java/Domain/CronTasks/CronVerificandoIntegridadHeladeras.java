@@ -88,14 +88,11 @@ public class CronVerificandoIntegridadHeladeras {
 
         boolean notificacionExistente = false;
         for (Notificacion notificacion : notificacionesDeEstaHeladera) {
-          System.out.println("Notificaciones data: " + notificacion.getId() +
-                  " Heladera " + notificacion.getHeladera().getNombre() +
-                  " tipo: " + notificacion.getTipoNotificacion());
 
           if (notificacion instanceof NotificacionFaltanViandas) {
             notificacionExistente = true;
 
-            break; // Salir del bucle al encontrar la notificación
+            break;
           }
         }
 
@@ -107,7 +104,6 @@ public class CronVerificandoIntegridadHeladeras {
           RepoNotificaciones.getInstance().guardar(notificacion);
           heladera.notificarInteresados(notificacion);
         }
-        System.out.println("SE mandara la notificacion");
         heladera.notificarInteresados(notificacionesDeEstaHeladera.get(0));
       }
     }

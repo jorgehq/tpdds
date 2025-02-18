@@ -131,7 +131,7 @@ public abstract class Colaborador {
 
          RepoColaboradores.getInstance().merge(this);
 
-         System.out.println("Cantidad notificaciones en el buzon son de  "+ notificaciones.size()+" notificaciones del usuario "+this.getDocumento());
+         System.out.println("Cantidad notificaciones en el buzon son de  "+ notificaciones.size()+" notificaciones del usuario "+this.getId());
          mediosDeContacto.forEach(a->a.enviarMensaje(n.generarMensaje()));
      }
 

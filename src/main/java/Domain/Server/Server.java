@@ -67,7 +67,7 @@ public class Server {
     app.post("/fallas", fallaTecnicaControler::reportar_falla);
 
     app.get("/reporte", reporteController::pantallaPrincipal);
-    app.post("/reporte/descargar", reporteController::descargarReporte); //Cambiar a get
+    app.get("/descargas", reporteController::descargarReporte); //Cambiar a get
 
     app.get("/colaboracion/archivo", cargaColaboracionController::pantalla_carga_datos);
     app.post("/colaboraciones/csv", cargaColaboracionController::cargar_archivo);

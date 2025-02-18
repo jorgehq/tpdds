@@ -13,7 +13,7 @@
       <body >
        <h1>Registro PSV</h1>
 
-      <form action="/colaboracion/personas-vulnerables" method="POST">
+      <form action="/personas-vulnerables" method="POST">
                <div class="form-floating">
                    <input type="text" class="form-control" id="nombre" name="nombre" required>
                    <label for="nombre">Nombre</label>
@@ -68,6 +68,7 @@
                         <input class="botonPrincipal" type="submit" value="Crear">
                     </div>
       </form>
+
        <div id="formularioContenedor">
            <div class="row">
                <div class="col">
@@ -81,12 +82,13 @@
                    </div>
                </div>
                <div class="col">
-                   <form action="/colaboracion/tarjetas" method="POST">
+                   <form action="/tarjetas" method="POST">
                        <div id="botonSolicitarTarjeta" class="form-floating">
                            <input class="botonPrincipal" type="submit" value="Solicitar">
                        </div>
                    </form>
                </div>
+
            </div>
        </div>
            {{/partial}}

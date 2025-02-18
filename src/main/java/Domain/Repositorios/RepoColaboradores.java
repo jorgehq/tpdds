@@ -4,10 +4,7 @@ import Domain.Colaborador.Colaborador;
 import Domain.Colaborador.PersonaHumana;
 import Domain.Colaborador.PersonaJuridica;
 import Domain.Usuarios.Usuario;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,6 +34,7 @@ public class RepoColaboradores {
 
     Colaborador colaborador = em.find(Colaborador.class, id);
 
+    em.refresh(colaborador);
     return colaborador;
   }
 
@@ -67,6 +65,14 @@ public class RepoColaboradores {
     em.merge(c);
     em.getTransaction().commit();
 
+  }
+  public void eliminarNotificacionColaborador(Long colaboradorId, Long notificacionId) {
+    em.getTransaction().begin();
+    Query query = em.createNativeQuery("DELETE FROM notificacion_colaborador WHERE notificacion_id = :notificacionId AND colaborador_id = :colaboradorId");
+    query.setParameter("notificacionId", notificacionId);
+    query.setParameter("colaboradorId", colaboradorId);
+    query.executeUpdate();
+    em.getTransaction().commit();
   }
 // No cerrar la conexion ya que es singleton porque rompe todo
 

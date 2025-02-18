@@ -118,5 +118,6 @@ Domain\Colaborador\PersonaJuridica.class
 Domain\Repositorios\RepoTecnicos.class
 Domain\Notificaciones\Sugerencias\SugerenciaMasVacio.class
 Domain\Repositorios\RepositorioPersonasVulnerables.class
+Domain\Servicios\ServicioReporte.class
 Domain\Solicitudes\Controlador\ControladorDeAcceso.class
 APIs\WSensor\WSensor.class

@@ -1,5 +1,6 @@
 package Domain.Repositorios;
 
+import Domain.Colaborador.Colaborador;
 import Domain.Heladera.Heladera;
 import Domain.Heladera.Vianda;
 import Domain.Solicitudes.SolicitudColaboracion;
@@ -48,8 +49,11 @@ public class RepoHeladera {
 
     List<Heladera> listaHeladeras = query.getResultList();
     Set<Heladera> heladeras = new HashSet<>(listaHeladeras);
-    for(Heladera h:heladeras){
+    for(Heladera h : heladeras) {
       em.refresh(h);
+      for (Colaborador c : h.getInteresados()) {
+        em.refresh(c);
+      }
     }
 
     return heladeras;

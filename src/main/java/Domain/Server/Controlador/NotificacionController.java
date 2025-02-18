@@ -25,7 +25,7 @@ public class NotificacionController {
         String error = ctx.sessionAttribute("error");
         if (error != null) {
             model.put("error", error);
-            ctx.sessionAttribute("error", null); // Limpiar el error después de mostrarlo
+            ctx.sessionAttribute("error", null);
         }
         List<Notificacion> filtradas ;
         if (usuarioID == null) {
@@ -33,6 +33,7 @@ public class NotificacionController {
         } else {
             Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
 
+            System.out.println("================================Cantidad de notificaciones "+colaborador.getNotificaciones().size()+"=============================");
                 filtradas = new ArrayList<>(colaborador.getNotificaciones());
                 if(filtradas==null){
                     TemplateRender.render(ctx, "/Notificaciones.html.hbs", model);
@@ -97,13 +98,14 @@ public class NotificacionController {
 
 
         String noti = ctx.queryParam("idNotificacion");
+        Long colaboradorId = Long.parseLong(ctx.sessionAttribute("usuarioID"));
+        Long notificacionId = Long.parseLong(noti);
 
+        RepoColaboradores.getInstance().eliminarNotificacionColaborador(colaboradorId, notificacionId);
         Colaborador colaborador=RepoColaboradores.getInstance().buscarPorId(Long.parseLong(ctx.sessionAttribute("usuarioID")));
 
-        Notificacion notificacion=RepoNotificaciones.getInstance().buscarPorId(Long.parseLong(noti));
-        colaborador.getNotificaciones().removeIf(n->n.getId()==notificacion.getId()
-                && n.getTipoNotificacion()==notificacion.getTipoNotificacion());
-        RepoColaboradores.getInstance().merge(colaborador);
+        System.out.println("========================================Colaborador notificaciones tamaño nuevo"+colaborador.getNotificaciones().size());
+
         ctx.redirect("/notificaciones");
     }
 }

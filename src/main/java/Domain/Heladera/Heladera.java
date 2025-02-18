@@ -157,26 +157,31 @@ public class Heladera {
       marcarComoInactiva();
     }
 
-    boolean notificacionYaEntregada = false;
+
 
     List<Colaborador> copiaInteresados = new ArrayList<>(interesados);
 
     System.out.println("====================Interesados: "+copiaInteresados.size());
     for (Colaborador c : copiaInteresados) {
+      boolean notificacionYaEntregada = false;
       for (Notificacion noti : c.getNotificaciones()) {
-        if (noti.getHeladera() == n.getHeladera() && n.getTipoNotificacion().equals(noti.getTipoNotificacion())) {
+
+        if (noti.getHeladera().getId().equals(n.getHeladera().getId()) && n.getTipoNotificacion().equals(noti.getTipoNotificacion())) {
           System.out.println("========================= Ya entregado =================================");
           notificacionYaEntregada = true;
-          break;
+
         }
       }
-      if (!notificacionYaEntregada) {
-        System.out.println("================= SE encontro un usuario sin la notificacion y esta suscripto, enviando");
+      if (notificacionYaEntregada) {
+        System.out.println("================= Ya esta entregado");
+
+      }else{
+        System.out.println("================= Se encontro un usuario sin la notificacion y esta suscripto, enviando");
 
         RepoNotificaciones.getInstance().guardar(n);
         c.realizarNotificacionPor(n);
       }
-      System.out.println("================= Ya esta entregado");
+
 
     }
   }

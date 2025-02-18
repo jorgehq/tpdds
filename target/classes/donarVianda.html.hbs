@@ -21,12 +21,14 @@
        </div>
        {{/if}}
 
-      <form action="/colaboracion/viandas" method="POST">
-            <div>
-              <p><strong>Heladera:</strong> {{heladera.nombre}}</p>
+      <form action="/viandas" method="POST">
+          <div class="contenedor-heladera">
+              <div class="info-contenido">
+              <p><strong>Nombre:</strong> {{heladera.nombre}}</p>
               <p><strong>Dirección:</strong> {{heladera.direccion.provincia}} {{heladera.direccion.localidad}} {{heladera.direccion.direccion}}</p>
               <input type="hidden" name="heladera" value="{{heladera.id}}">
             </div>
+          </div>
       <div class="row">
                  <div class="col">
                      <div class="form-floating">

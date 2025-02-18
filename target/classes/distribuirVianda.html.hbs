@@ -21,18 +21,21 @@
       </div>
       {{/if}}
 
-      <form action="/colaboracion/distribuciones" method="POST">
+      <form action="/distribuciones" method="POST">
 
-            <div>
-              <p><strong>Heladera:</strong> {{heladera1.nombre}}</p>
-              <p><strong>Dirección:</strong> {{heladera1.direccion.provincia}} {{heladera1.direccion.localidad}} {{heladera1.direccion.direccion}}</p>
-              <input type="hidden" name="heladera1" value="{{heladera1.id}}">
-            </div>
-            <div>
-              <p><strong>Heladera:</strong> {{heladera2.nombre}}</p>
-              <p><strong>Dirección:</strong> {{heladera2.direccion.provincia}} {{heladera2.direccion.localidad}} {{heladera2.direccion.direccion}}</p>
-              <input type="hidden" name="heladera2" value="{{heladera2.id}}">
-            </div>
+          <div class="contenedor-heladera">
+              <div class="info-contenido">
+                  <p><strong>Nombre:</strong> {{heladera1.nombre}}</p>
+                  <p><strong>Dirección:</strong> {{heladera1.direccion.provincia}} {{heladera1.direccion.localidad}} {{heladera1.direccion.direccion}}</p>
+                  <input type="hidden" name="heladera1" value="{{heladera1.id}}">
+              </div>
+
+              <div class="info-contenido">
+                  <p><strong>Heladera:</strong> {{heladera2.nombre}}</p>
+                  <p><strong>Dirección:</strong> {{heladera2.direccion.provincia}} {{heladera2.direccion.localidad}} {{heladera2.direccion.direccion}}</p>
+                  <input type="hidden" name="heladera2" value="{{heladera2.id}}">
+              </div>
+          </div>
 
       <div class="form-floating">
           <select class="form-control" name="origen" required>
