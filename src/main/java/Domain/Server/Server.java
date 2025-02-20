@@ -93,8 +93,8 @@ public class Server {
     });
     app.start(7000);
 
-   // new CronVerificarSolicitudes().verificandoYmandarMensaje();
-   // new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
+    new CronVerificarSolicitudes().verificandoYmandarMensaje();
+   new CronVerificandoIntegridadHeladeras().verificandoYmandarMensaje();
   }
 
 

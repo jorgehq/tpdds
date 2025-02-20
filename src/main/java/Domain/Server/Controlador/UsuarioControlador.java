@@ -36,13 +36,16 @@ public class UsuarioControlador {
 
 
   public void inicioSesion(Context ctx) {
+    String usuarioID = ctx.sessionAttribute("usuarioID");
     String username = ctx.formParam("correo");
     String password = ctx.formParam("contrasenia");
     String error = ctx.sessionAttribute("error");
     Map<String, Object> model=new HashMap<>();
 
     Usuario o = RepoUsuario.getInstance().buscarPorNombre(username).get(0);
-
+    if (usuarioID != null) {
+      ctx.redirect("/col");
+    }
     if (o != null && o.getContrasenia().compareTo(password) == 0) {
 
       ctx.sessionAttribute("usuarioID", Long.toString(o.getAsignado().getId()));

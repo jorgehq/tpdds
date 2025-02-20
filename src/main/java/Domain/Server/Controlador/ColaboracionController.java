@@ -36,7 +36,7 @@ public class ColaboracionController {
         String dato = ctx.queryParam("dato");
         Set<Heladera> filtradas;
         if (usuarioID == null) {
-            ctx.redirect("/");
+            ctx.redirect("/colaboracion");
         } else {
 
             if (ctx.queryParam("filtro") == null) {
