@@ -80,7 +80,7 @@ public class Server {
     app.post("/cuentas", cuentaController::modificarCuenta);
 
     app.get("/cuenta/cerrar", cuentaController::cerrarCuenta);
-    app.post("/colaboraciones", cuentaController::AceptarTodasColaboraciones);
+    app.get("/colaboraciones", cuentaController::AceptarTodasColaboraciones);
 
 
     iniciarBD();

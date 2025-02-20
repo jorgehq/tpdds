@@ -92,7 +92,6 @@ public class CuentaController {
         ctx.redirect("/");
     }
     public void AceptarTodasColaboraciones(Context ctx){
-        System.out.println("============================Colaborando====================================");
         String sesion = ctx.sessionAttribute("usuarioID");
         Usuario o = RepoUsuario.getInstance().buscarPorIdColaborador(Long.parseLong(sesion));
         Set<SolicitudColaboracion> todas= RepoSolicitudColaboracion.getInstance()
@@ -105,8 +104,7 @@ public class CuentaController {
                 .collect(Collectors.toSet());
         System.out.println("cantidad solicitudes "+todas.size());
         for(SolicitudColaboracion s:filtradas){
-            System.out.println("========================================");
-            System.out.println("Instanciando la solicitud "+s.getId());
+
             s.instanciarColaboracion();
 
         }

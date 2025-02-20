@@ -130,11 +130,8 @@ public class SolicitudColaboracion {
     return expired;
   }
   public void instanciarColaboracion(){
-    System.out.println("================================Comensando Fabrica");
     TipoDeColaboracion nueva;
-    System.out.println("ID solicitud: "+id);
-    System.out.println("DAtos donar vianda "+datosTemporales.get("fechaCaducidad")+ "  "+datosTemporales.get("calorias")+"  "+datosTemporales.get("peso"));
-    System.out.println("DAtos donar vianda "+datosTemporales.get("origen")+ "  "+datosTemporales.get("destino"));
+
 
     if(colaboracion instanceof DonarVianda){
       nueva=FabricaColaboraciones.completarColaboracion("donarvianda",datosTemporales);
@@ -150,8 +147,6 @@ public class SolicitudColaboracion {
     }
     colaboracion=nueva;
     realizada=true;
-
-    System.out.println("================================Fabrica creada");
 
     RepoColaboraciones.getInstance().merge(colaboracion);
 
